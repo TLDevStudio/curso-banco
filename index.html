@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mentoria Bancária</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-logo">O nome <span>que você</span> vai escolher ainda</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#demos">Aulas Demo</a></li>
+            <li><a href="#modulos">Módulos</a></li>
+            <li><a href="#preco" class="nav-cta">Quero Participar</a></li>
+        </ul>
+        <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="sobre">
+        <div class="hero-inner">
+
+            <div class="hero-text">
+                <p class="hero-eyebrow">Mentoria Exclusiva de Vendas Bancárias</p>
+                <h1>Do Atendimento à <em>Alta Performance</em> em Vendas</h1>
+                <p class="hero-desc">
+                    Aprenda com um gerente de vendas do Itaú que domina consórcio, crédito e portfólio bancário na
+                    prática. Estratégias reais, argumentação afiada e método comprovado para bater metas com
+                    consistência.
+                </p>
+                <div class="hero-stats">
+                    <div>
+                        <div class="hero-stat-num">2<span>+</span></div>
+                        <div class="hero-stat-label">Anos de Banco</div>
+                    </div>
+                    <div>
+                        <div class="hero-stat-num">340<span>%</span></div>
+                        <div class="hero-stat-label">Meta Superada</div>
+                    </div>
+                    <div>
+                        <div class="hero-stat-num">12<span>k</span></div>
+                        <div class="hero-stat-label">Clientes Atendidos</div>
+                    </div>
+                </div>
+                <div class="hero-btns">
+                    <a href="#preco" class="btn-primary">Garantir Minha Vaga</a>
+                    <a href="#demos" class="btn-outline">Ver Aulas Demo</a>
+                </div>
+            </div>
+
+            <div class="mentor-card">
+                <div class="mentor-photo-wrap">
+                    <div class="mentor-photo">
+                        <img src="./img/perfil.png">
+                    </div>
+                    <div class="mentor-badge">
+                        <strong>Erick Dias</strong>
+                        Gerente · Banco Itaú
+                    </div>
+                </div>
+                <div class="mentor-info">
+                    <div class="mentor-name">Erick Dias</div>
+                    <div class="mentor-title">Gerente de Vendas · Banco Itaú</div>
+                    <p class="mentor-bio">
+                        Especialista em consórcio, crédito e investimentos com histórico de superar metas trimestrais.
+                        Agora compartilhando o método que o colocou entre os top 5% da rede Itaú.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="section-divider">
+        <div class="divider-diamond"></div>
+    </div>
+
+    <!-- O QUE VOCÊ APRENDE -->
+    <section class="learn-section">
+        <div class="section-inner">
+            <p class="section-tag">Conteúdo da Mentoria</p>
+            <h2 class="section-title">O que você vai dominar</h2>
+            <p class="section-subtitle">Uma jornada prática do diagnóstico do cliente até o fechamento — sem rodeios,
+                sem teoria vazia.</p>
+            <div class="learn-grid">
+                <div class="learn-card">
+                    <div class="learn-icon">🎯</div>
+                    <h3>Abordagem de Alta Conversão</h3>
+                    <p>Como iniciar uma conversa de vendas que gera interesse imediato, adaptando o discurso ao perfil
+                        de cada cliente.</p>
+                </div>
+                <div class="learn-card">
+                    <div class="learn-icon">💬</div>
+                    <h3>Gestão de Objeções</h3>
+                    <p>Scripts e raciocínio para responder com confiança às principais resistências: prazo, custo,
+                        concorrência e desconfiança.</p>
+                </div>
+                <div class="learn-card">
+                    <div class="learn-icon">📊</div>
+                    <h3>Portfólio Bancário Completo</h3>
+                    <p>Consórcio, crédito pessoal, financiamento e investimentos — como posicionar cada produto no
+                        momento certo.</p>
+                </div>
+                <div class="learn-card">
+                    <div class="learn-icon">🔄</div>
+                    <h3>Ciclo de Relacionamento</h3>
+                    <p>Como transformar um cliente de um produto em um cliente de carteira — fidelização e upsell no
+                        banco.</p>
+                </div>
+                <div class="learn-card">
+                    <div class="learn-icon">📈</div>
+                    <h3>Gestão de Metas</h3>
+                    <p>Planejamento semanal, pipeline de oportunidades e como manter a consistência para bater metas
+                        todos os meses.</p>
+                </div>
+                <div class="learn-card">
+                    <div class="learn-icon">🧠</div>
+                    <h3>Mentalidade de Alta Performance</h3>
+                    <p>Como os melhores vendedores pensam, se preparam e reagem às pressões do ambiente bancário.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider">
+        <div class="divider-diamond"></div>
+    </div>
+
+    <!-- VIDEO DEMOS -->
+    <section class="video-section" id="demos">
+        <div class="section-inner">
+            <p class="section-tag">Aulas Demonstrativas</p>
+            <h2 class="section-title" style="color:var(--white)">Veja como são as aulas antes de decidir</h2>
+            <p class="section-subtitle">Duas aulas gratuitas para você sentir a profundidade e a objetividade do método.
+            </p>
+            <div class="video-grid">
+                <div class="video-wrap">
+                    <div class="video-thumb" id="video1" onclick="loadVideo(1)">
+                        <div class="play-btn">▶</div>
+                        <p class="video-placeholder-text">Clique para assistir</p>
+                    </div>
+                    <div class="video-label">
+                        <div class="video-label-tag">Demo · Módulo 1</div>
+                        <div class="video-label-title">Como apresentar consórcio sem assustar o cliente</div>
+                    </div>
+                </div>
+                <div class="video-wrap">
+                    <div class="video-thumb" id="video2" onclick="loadVideo(2)">
+                        <div class="play-btn">▶</div>
+                        <p class="video-placeholder-text">Clique para assistir</p>
+                    </div>
+                    <div class="video-label">
+                        <div class="video-label-tag">Demo · Módulo 3</div>
+                        <div class="video-label-title">A resposta certa quando o cliente diz "não preciso de crédito"
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider">
+        <div class="divider-diamond"></div>
+    </div>
+
+    <!-- MÓDULOS DO CURSO -->
+    <section class="modules-section" id="modulos">
+        <div class="section-inner">
+            <div class="modules-header">
+                <div>
+                    <p class="section-tag">Grade de Conteúdo</p>
+                    <h2 class="section-title">Módulos da Mentoria</h2>
+                    <p class="section-subtitle">Cada módulo é uma especialização prática em um produto ou habilidade
+                        bancária.</p>
+                </div>
+                <div class="lock-notice">
+                    <strong>🔐 Acesso mediante pagamento</strong>
+                    Os módulos são desbloqueados após a confirmação da sua inscrição. O módulo 1 tem uma prévia
+                    disponível abaixo.
+                </div>
+            </div>
+
+            <!-- MÓDULO 1 — DESBLOQUEADO -->
+            <div class="module featured" id="mod1">
+                <div class="module-header" onclick="toggleModule('mod1')">
+                    <span class="module-number">01</span>
+                    <div class="module-title-wrap">
+                        <div class="module-title">Consórcio — Do Básico ao Fechamento</div>
+                        <div class="module-subtitle">Como vender o produto mais incompreendido do banco</div>
+                    </div>
+                    <div class="module-meta">
+                        <span class="module-lessons">8 aulas · ~2h30</span>
+                        <div class="lock-icon unlocked">✦</div>
+                    </div>
+                </div>
+                <div class="module-body" id="mod1-body">
+                    <p class="module-intro">
+                        O consórcio é um dos produtos com maior rejeição inicial — e maior potencial de fechamento
+                        quando bem explicado. Neste módulo você vai entender a lógica do produto, como apresentá-lo de
+                        forma clara e como lidar com as objeções mais comuns que todo gerente enfrenta.
+                    </p>
+
+                    <div class="lesson-list">
+                        <div class="lesson">
+                            <div class="lesson-icon">▶</div>
+                            <div class="lesson-text">
+                                <div class="lesson-title">O que é consórcio e como ele realmente funciona</div>
+                                <div class="lesson-desc">Conceito, grupos, cartas de crédito e contemplação — explicado
+                                    como você vai explicar ao cliente</div>
+                            </div>
+                            <span class="lesson-duration">18 min</span>
+                        </div>
+                        <div class="lesson">
+                            <div class="lesson-icon">▶</div>
+                            <div class="lesson-text">
+                                <div class="lesson-title">Perfil de cliente ideal para consórcio</div>
+                                <div class="lesson-desc">Como identificar quem tem maior propensão a comprar — e
+                                    abordá-lo no momento certo</div>
+                            </div>
+                            <span class="lesson-duration">14 min</span>
+                        </div>
+                        <div class="lesson">
+                            <div class="lesson-icon">▶</div>
+                            <div class="lesson-text">
+                                <div class="lesson-title">A abordagem inicial — o que dizer nos primeiros 60 segundos
+                                </div>
+                                <div class="lesson-desc">Script adaptável para clientes de agência, telefone e WhatsApp
+                                </div>
+                            </div>
+                            <span class="lesson-duration">22 min</span>
+                        </div>
+                        <div class="lesson">
+                            <div class="lesson-icon">▶</div>
+                            <div class="lesson-text">
+                                <div class="lesson-title">Comparando consórcio com financiamento</div>
+                                <div class="lesson-desc">Como posicionar o consórcio sem depreciar o financiamento — e
+                                    quando cada um se aplica</div>
+                            </div>
+                            <span class="lesson-duration">20 min</span>
+                        </div>
+                    </div>
+
+                    <div class="objection-box">
+                        <h4>💬 Gestão de Objeções — Respostas Prontas</h4>
+
+                        <div class="objection-item">
+                            <div class="objection-q">❝ Consórcio demora muito, eu preciso do bem agora ❞</div>
+                            <div class="objection-a">
+                                "Entendo, e essa dúvida é super comum. Mas deixa eu te mostrar algo: muitos clientes são
+                                contemplados nos primeiros meses, especialmente quando há lance. Além disso, se você tem
+                                uma data limite, a gente pode simular o quanto você precisaria de lance para antecipar.
+                                Você quer ver como ficaria no seu caso?"
+                            </div>
+                        </div>
+
+                        <div class="objection-item">
+                            <div class="objection-q">❝ Prefiro fazer um financiamento, pelo menos sei quando vou receber
+                                ❞</div>
+                            <div class="objection-a">
+                                "Faz sentido. No financiamento você tem a certeza da data, mas paga em torno de 30 a 50%
+                                a mais pelo bem no longo prazo por causa dos juros. No consórcio você paga exatamente o
+                                valor do bem. A pergunta que eu te faço é: você prefere a certeza imediata ou o melhor
+                                custo-benefício? Dependendo da sua situação, um ou outro faz mais sentido."
+                            </div>
+                        </div>
+
+                        <div class="objection-item">
+                            <div class="objection-q">❝ Já tentei e não fui contemplado rápido ❞</div>
+                            <div class="objection-a">
+                                "Posso entender a frustração. A grande diferença está na estratégia de lance. A maioria
+                                das pessoas entra sem planejar o lance e aí fica esperando o sorteio. Mas quem entende o
+                                mecanismo usa o momento certo do grupo para dar um lance certeiro. Isso é exatamente o
+                                que a gente vai discutir para você sair daqui com um plano."
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="module-cta">
+                        <a href="#preco" class="btn-primary">Acessar Módulo Completo</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MÓDULOS BLOQUEADOS -->
+            <div class="module" id="mod2">
+                <div class="module-header" onclick="toggleModule('mod2')">
+                    <span class="module-number">02</span>
+                    <div class="module-title-wrap">
+                        <div class="module-title">Crédito Pessoal e Consignado</div>
+                        <div class="module-subtitle">Identificar necessidade, simular e fechar — sem pressão</div>
+                    </div>
+                    <div class="module-meta">
+                        <span class="module-lessons">6 aulas · ~1h50</span>
+                        <div class="lock-icon locked">🔒</div>
+                    </div>
+                </div>
+                <div class="module-body collapsed" id="mod2-body">
+                    <div class="lock-overlay">
+                        <div class="lock-overlay-icon">🔒</div>
+                        <div class="lock-overlay-text">
+                            <strong>Conteúdo bloqueado</strong>
+                            Este módulo é desbloqueado após a confirmação do seu pagamento. Faça sua inscrição para
+                            acessar todas as aulas.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module" id="mod3">
+                <div class="module-header" onclick="toggleModule('mod3')">
+                    <span class="module-number">03</span>
+                    <div class="module-title-wrap">
+                        <div class="module-title">Financiamento Imobiliário</div>
+                        <div class="module-subtitle">Como tornar o sonho da casa própria uma venda concreta</div>
+                    </div>
+                    <div class="module-meta">
+                        <span class="module-lessons">7 aulas · ~2h10</span>
+                        <div class="lock-icon locked">🔒</div>
+                    </div>
+                </div>
+                <div class="module-body collapsed" id="mod3-body">
+                    <div class="lock-overlay">
+                        <div class="lock-overlay-icon">🔒</div>
+                        <div class="lock-overlay-text">
+                            <strong>Conteúdo bloqueado</strong>
+                            Disponível após inscrição. Aqui você aprende a conduzir uma negociação imobiliária do
+                            primeiro contato até a assinatura.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module" id="mod4">
+                <div class="module-header" onclick="toggleModule('mod4')">
+                    <span class="module-number">04</span>
+                    <div class="module-title-wrap">
+                        <div class="module-title">Cartão de Crédito e Seguros</div>
+                        <div class="module-subtitle">Cross-sell de alta eficiência sem forçar a barra</div>
+                    </div>
+                    <div class="module-meta">
+                        <span class="module-lessons">5 aulas · ~1h30</span>
+                        <div class="lock-icon locked">🔒</div>
+                    </div>
+                </div>
+                <div class="module-body collapsed" id="mod4-body">
+                    <div class="lock-overlay">
+                        <div class="lock-overlay-icon">🔒</div>
+                        <div class="lock-overlay-text">
+                            <strong>Conteúdo bloqueado</strong>
+                            Aprenda como incluir cartão e seguros na conversa de forma natural, aumentando o ticket
+                            médio de cada atendimento.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module" id="mod5">
+                <div class="module-header" onclick="toggleModule('mod5')">
+                    <span class="module-number">05</span>
+                    <div class="module-title-wrap">
+                        <div class="module-title">Gestão de Carteira e Fidelização</div>
+                        <div class="module-subtitle">O cliente que já comprou é o melhor cliente para a próxima venda
+                        </div>
+                    </div>
+                    <div class="module-meta">
+                        <span class="module-lessons">6 aulas · ~2h00</span>
+                        <div class="lock-icon locked">🔒</div>
+                    </div>
+                </div>
+                <div class="module-body collapsed" id="mod5-body">
+                    <div class="lock-overlay">
+                        <div class="lock-overlay-icon">🔒</div>
+                        <div class="lock-overlay-text">
+                            <strong>Conteúdo bloqueado</strong>
+                            Estratégias de relacionamento, régua de contato e como transformar um atendimento em um
+                            cliente de longo prazo.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module" id="mod6">
+                <div class="module-header" onclick="toggleModule('mod6')">
+                    <span class="module-number">06</span>
+                    <div class="module-title-wrap">
+                        <div class="module-title">Planejamento de Metas e Rotina de Alta Performance</div>
+                        <div class="module-subtitle">Como estruturar sua semana para nunca mais perder uma meta</div>
+                    </div>
+                    <div class="module-meta">
+                        <span class="module-lessons">4 aulas · ~1h20</span>
+                        <div class="lock-icon locked">🔒</div>
+                    </div>
+                </div>
+                <div class="module-body collapsed" id="mod6-body">
+                    <div class="lock-overlay">
+                        <div class="lock-overlay-icon">🔒</div>
+                        <div class="lock-overlay-text">
+                            <strong>Conteúdo bloqueado</strong>
+                            Método de planejamento semanal, gestão de pipeline e mindset para manter a performance nos
+                            momentos de pressão.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="cta-banner" id="preco">
+        <div class="section-tag">Inscrição Aberta</div>
+        <h2>Comece a vender como um profissional que obtém resultados</h2>
+        <p>Acesso vitalício a todos os módulos, atualizações e uma comunidade exclusiva de profissionais de vendas
+            bancárias.</p>
+        <div class="price-display">
+            <span class="price-from">por apenas</span>
+            <span class="price-value">R$ 497</span>
+            <span class="price-period">/ acesso vitalício</span>
+        </div>
+        <a href="#" class="btn-primary">Quero Garantir Meu Acesso</a>
+        <p class="cta-guarantee">✓ 7 dias de garantia · ✓ Acesso imediato · ✓ Suporte via comunidade</p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div>
+                <div class="footer-logo">O nome <span>que você</span> vai escolher ainda</div>
+                <div class="footer-tagline">Mentoria de vendas bancárias de alto desempenho</div>
+            </div>
+            <div class="footer-links">
+                <a href="#">Sobre a Mentoria</a>
+                <a href="#">Política de Privacidade</a>
+                <a href="#">Termos de Uso</a>
+                <a href="#">Contato</a>
+            </div>
+        </div>
+        <div class="footer-copy">
+            © 2026 O nome do seu curso vai ficar aqui tbm. Todos os direitos reservados. Este produto é uma mentoria educacional de vendas.
+        </div>
+    </footer>
+
+    <script src="./js/script.js"></script>
+
+</body>
+
+</html>
