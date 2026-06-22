@@ -16,9 +16,12 @@
 <body>
 
     <nav>
-        <div class="nav-logo">O nome <span>que você</span> vai escolher ainda</div>
+
+        <div class="nav-logo">
+            <span class="nav-logo-text">Onda de </span><span>Resultados</span>
+        </div>
         <ul class="nav-links" id="navLinks">
-            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="sobre.html">Sobre</a></li> <!-- página sobre separada -->
             <li><a href="#demos">Aulas Demo</a></li>
             <li><a href="#modulos">Módulos</a></li>
             <li><a href="#preco" class="nav-cta">Quero Participar</a></li>
@@ -29,7 +32,7 @@
     </nav>
 
     <!-- HERO -->
-    <section class="hero" id="sobre">
+    <section class="hero reveal" id="sobre">
         <div class="hero-inner">
 
             <div class="hero-text">
@@ -41,16 +44,17 @@
                     consistência.
                 </p>
                 <div class="hero-stats">
+                    <!-- colocar os numeros atualizando automaticamente até o numero proposto real -->
                     <div>
-                        <div class="hero-stat-num">2<span>+</span></div>
+                        <div class="hero-stat-num" data-target="2" data-suffix="+">0</div>
                         <div class="hero-stat-label">Anos de Banco</div>
                     </div>
                     <div>
-                        <div class="hero-stat-num">340<span>%</span></div>
+                        <div class="hero-stat-num" data-target="340" data-suffix="%">0</div>
                         <div class="hero-stat-label">Meta Superada</div>
                     </div>
                     <div>
-                        <div class="hero-stat-num">12<span>k</span></div>
+                        <div class="hero-stat-num" data-target="12" data-suffix="k">12<span>k</span></div>
                         <div class="hero-stat-label">Clientes Atendidos</div>
                     </div>
                 </div>
@@ -59,27 +63,18 @@
                     <a href="#demos" class="btn-outline">Ver Aulas Demo</a>
                 </div>
             </div>
-
-            <div class="mentor-card">
-                <div class="mentor-photo-wrap">
-                    <div class="mentor-photo">
-                        <img src="./img/perfil.png">
-                    </div>
-                    <div class="mentor-badge">
-                        <strong>Erick Dias</strong>
-                        Gerente · Banco Itaú
-                    </div>
+            <div class="market-panel reveal">
+                <div class="market-panel-header">
+                    <span class="market-pulse"></span>
+                    Mercado ao Vivo
                 </div>
-                <div class="mentor-info">
-                    <div class="mentor-name">Erick Dias</div>
-                    <div class="mentor-title">Gerente de Vendas · Banco Itaú</div>
-                    <p class="mentor-bio">
-                        Especialista em consórcio, crédito e investimentos com histórico de superar metas trimestrais.
-                        Agora compartilhando o método que o colocou entre os top 5% da rede Itaú.
-                    </p>
+                <div class="market-items" id="marketItems">
+                    <div class="market-loading">Carregando dados...</div>
                 </div>
+                <div class="market-footer">Atualizado a cada 60s · CoinGecko & AwesomeAPI</div>
             </div>
 
+        </div>
         </div>
     </section>
 
@@ -88,26 +83,26 @@
     </div>
 
     <!-- O QUE VOCÊ APRENDE -->
-    <section class="learn-section">
+    <section class="learn-section reveal">
         <div class="section-inner">
             <p class="section-tag">Conteúdo da Mentoria</p>
             <h2 class="section-title">O que você vai dominar</h2>
             <p class="section-subtitle">Uma jornada prática do diagnóstico do cliente até o fechamento — sem rodeios,
                 sem teoria vazia.</p>
             <div class="learn-grid">
-                <div class="learn-card">
+                <div class="learn-card reveal">
                     <div class="learn-icon">🎯</div>
                     <h3>Abordagem de Alta Conversão</h3>
                     <p>Como iniciar uma conversa de vendas que gera interesse imediato, adaptando o discurso ao perfil
                         de cada cliente.</p>
                 </div>
-                <div class="learn-card">
+                <div class="learn-card reveal">
                     <div class="learn-icon">💬</div>
                     <h3>Gestão de Objeções</h3>
                     <p>Scripts e raciocínio para responder com confiança às principais resistências: prazo, custo,
                         concorrência e desconfiança.</p>
                 </div>
-                <div class="learn-card">
+                <div class="learn-card reveal">
                     <div class="learn-icon">📊</div>
                     <h3>Portfólio Bancário Completo</h3>
                     <p>Consórcio, crédito pessoal, financiamento e investimentos — como posicionar cada produto no
@@ -119,13 +114,13 @@
                     <p>Como transformar um cliente de um produto em um cliente de carteira — fidelização e upsell no
                         banco.</p>
                 </div>
-                <div class="learn-card">
+                <div class="learn-card reveal">
                     <div class="learn-icon">📈</div>
                     <h3>Gestão de Metas</h3>
                     <p>Planejamento semanal, pipeline de oportunidades e como manter a consistência para bater metas
                         todos os meses.</p>
                 </div>
-                <div class="learn-card">
+                <div class="learn-card reveal">
                     <div class="learn-icon">🧠</div>
                     <h3>Mentalidade de Alta Performance</h3>
                     <p>Como os melhores vendedores pensam, se preparam e reagem às pressões do ambiente bancário.</p>
@@ -139,7 +134,7 @@
     </div>
 
     <!-- VIDEO DEMOS -->
-    <section class="video-section" id="demos">
+    <section class="video-section reveal" id="demos">
         <div class="section-inner">
             <p class="section-tag">Aulas Demonstrativas</p>
             <h2 class="section-title" style="color:var(--white)">Veja como são as aulas antes de decidir</h2>
@@ -176,7 +171,7 @@
     </div>
 
     <!-- MÓDULOS DO CURSO -->
-    <section class="modules-section" id="modulos">
+    <section class="modules-section reveal" id="modulos">
         <div class="section-inner">
             <div class="modules-header">
                 <div>
@@ -212,46 +207,8 @@
                         forma clara e como lidar com as objeções mais comuns que todo gerente enfrenta.
                     </p>
 
-                    <div class="lesson-list">
-                        <div class="lesson">
-                            <div class="lesson-icon">▶</div>
-                            <div class="lesson-text">
-                                <div class="lesson-title">O que é consórcio e como ele realmente funciona</div>
-                                <div class="lesson-desc">Conceito, grupos, cartas de crédito e contemplação — explicado
-                                    como você vai explicar ao cliente</div>
-                            </div>
-                            <span class="lesson-duration">18 min</span>
-                        </div>
-                        <div class="lesson">
-                            <div class="lesson-icon">▶</div>
-                            <div class="lesson-text">
-                                <div class="lesson-title">Perfil de cliente ideal para consórcio</div>
-                                <div class="lesson-desc">Como identificar quem tem maior propensão a comprar — e
-                                    abordá-lo no momento certo</div>
-                            </div>
-                            <span class="lesson-duration">14 min</span>
-                        </div>
-                        <div class="lesson">
-                            <div class="lesson-icon">▶</div>
-                            <div class="lesson-text">
-                                <div class="lesson-title">A abordagem inicial — o que dizer nos primeiros 60 segundos
-                                </div>
-                                <div class="lesson-desc">Script adaptável para clientes de agência, telefone e WhatsApp
-                                </div>
-                            </div>
-                            <span class="lesson-duration">22 min</span>
-                        </div>
-                        <div class="lesson">
-                            <div class="lesson-icon">▶</div>
-                            <div class="lesson-text">
-                                <div class="lesson-title">Comparando consórcio com financiamento</div>
-                                <div class="lesson-desc">Como posicionar o consórcio sem depreciar o financiamento — e
-                                    quando cada um se aplica</div>
-                            </div>
-                            <span class="lesson-duration">20 min</span>
-                        </div>
-                    </div>
-
+                    <!-- ✅ ÚNICA MUDANÇA: essa div substitui todo o bloco <div class="lesson-list">...</div> -->
+                    <div id="lista-mod1"></div>
                     <div class="objection-box">
                         <h4>💬 Gestão de Objeções — Respostas Prontas</h4>
 
@@ -287,12 +244,12 @@
                         </div>
                     </div>
 
+
                     <div class="module-cta">
                         <a href="#preco" class="btn-primary">Acessar Módulo Completo</a>
                     </div>
                 </div>
             </div>
-
             <!-- MÓDULOS BLOQUEADOS -->
             <div class="module" id="mod2">
                 <div class="module-header" onclick="toggleModule('mod2')">
@@ -419,7 +376,7 @@
     </section>
 
     <!-- CTA FINAL -->
-    <section class="cta-banner" id="preco">
+    <section class="cta-banner reveal" id="preco">
         <div class="section-tag">Inscrição Aberta</div>
         <h2>Comece a vender como um profissional que obtém resultados</h2>
         <p>Acesso vitalício a todos os módulos, atualizações e uma comunidade exclusiva de profissionais de vendas
@@ -437,7 +394,7 @@
     <footer>
         <div class="footer-inner">
             <div>
-                <div class="footer-logo">O nome <span>que você</span> vai escolher ainda</div>
+                <div class="footer-logo">Onda da <span>Resultados</span></div>
                 <div class="footer-tagline">Mentoria de vendas bancárias de alto desempenho</div>
             </div>
             <div class="footer-links">
@@ -448,7 +405,8 @@
             </div>
         </div>
         <div class="footer-copy">
-            © 2026 O nome do seu curso vai ficar aqui tbm. Todos os direitos reservados. Este produto é uma mentoria educacional de vendas.
+            © 2026 Onda de Resultados. Todos os direitos reservados. Este produto é uma mentoria
+            educacional de vendas.
         </div>
     </footer>
 
