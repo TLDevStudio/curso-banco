@@ -13,6 +13,7 @@ app.use(express.json());
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/payment', require('./routes/payment'));
 app.use('/api/modules', require('./routes/modules'));
+app.use('/api/admin', require('./routes/admin'));
 
 // Rota de teste
 app.get('/', (req, res) => {
