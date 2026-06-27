@@ -184,8 +184,6 @@
 
     <script src="../js/api.js"></script>
     <script>
-        const API_URL = 'https://curso-banco-api.onrender.com';
-
         // Se não estiver logado, manda para login
         if (!api.estaLogado()) {
             window.location.href = 'login.html';
@@ -200,7 +198,6 @@
             const card = document.getElementById('cardConteudo');
             const avisoNegado = document.getElementById('acessoNegado');
 
-            // Timeout de 10 segundos
             const timeout = setTimeout(() => {
                 card.innerHTML = `
             <div class="membros-card-icon">⚠️</div>
