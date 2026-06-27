@@ -200,37 +200,41 @@
             const card = document.getElementById('cardConteudo');
             const avisoNegado = document.getElementById('acessoNegado');
 
+            // Timeout de 10 segundos
+            const timeout = setTimeout(() => {
+                card.innerHTML = `
+            <div class="membros-card-icon">⚠️</div>
+            <h2>Servidor iniciando...</h2>
+            <p>O servidor estava em repouso e está acordando. Aguarde 30 segundos e tente novamente.</p>
+            <button class="btn-primary" onclick="verificarAcesso()">Tentar novamente</button>`;
+            }, 10000);
+
             try {
                 const res = await api.getModulos();
+                clearTimeout(timeout);
 
-                // Acesso liberado — tem mais de 1 módulo
                 if (res.modulos && res.modulos.length > 1) {
                     card.innerHTML = `
-                    <div class="membros-card-icon">🎉</div>
-                    <h2>Acesso Liberado!</h2>
-                    <p>Seus módulos estão disponíveis. Em breve o conteúdo completo estará aqui.</p>
-                    <p style="font-size:0.75rem;color:var(--gold);font-weight:600;letter-spacing:0.08em;text-transform:uppercase;">
-                        ${res.modulos.length} módulos desbloqueados
-                    </p>`;
+                <div class="membros-card-icon">🎉</div>
+                <h2>Acesso Liberado!</h2>
+                <p>Seus módulos estão disponíveis.</p>`;
                 } else {
-                    // Só tem acesso ao mod1 — não pagou ainda
                     avisoNegado.style.display = 'block';
                     card.innerHTML = `
-                    <div class="membros-card-icon">🔒</div>
-                    <h2>Acesso Pendente</h2>
-                    <p>Você está cadastrado mas seu acesso ainda não foi liberado. 
-                    Após a confirmação do pagamento você terá acesso a todos os módulos.</p>
-                    <a href="checkout.html" class="btn-primary" 
-                       style="display:inline-block;text-decoration:none;">
-                        Realizar Pagamento
-                    </a>`;
+                <div class="membros-card-icon">🔒</div>
+                <h2>Acesso Pendente</h2>
+                <p>Aguardando confirmação do pagamento.</p>
+                <a href="checkout.html" class="btn-primary" style="display:inline-block;text-decoration:none;">
+                    Realizar Pagamento
+                </a>`;
                 }
             } catch {
+                clearTimeout(timeout);
                 card.innerHTML = `
-                <div class="membros-card-icon">⚠️</div>
-                <h2>Erro de conexão</h2>
-                <p>Não foi possível verificar seu acesso. Tente novamente.</p>
-                <button class="btn-primary" onclick="verificarAcesso()">Tentar novamente</button>`;
+            <div class="membros-card-icon">⚠️</div>
+            <h2>Erro de conexão</h2>
+            <p>Não foi possível verificar seu acesso. Tente novamente.</p>
+            <button class="btn-primary" onclick="verificarAcesso()">Tentar novamente</button>`;
             }
         }
 

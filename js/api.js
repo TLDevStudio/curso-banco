@@ -26,7 +26,7 @@ const api = {
     logout() {
         localStorage.removeItem('token');
         localStorage.removeItem('nome');
-        window.location.href = '../pages/login.html'; // ← corrige o caminho
+        window.location.href = '/pages/login.html';
     },
 
     // Cadastro
