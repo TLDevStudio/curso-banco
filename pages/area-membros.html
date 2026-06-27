@@ -11,149 +11,15 @@
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="../css/style.css">
-    <style>
-        body {
-            min-height: 100vh;
-            background: var(--off-white);
-        }
-
-        .membros-nav {
-            background: var(--navy);
-            padding: 1rem 5%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .membros-nav-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--white);
-        }
-
-        .membros-nav-logo span {
-            color: var(--gold);
-        }
-
-        .membros-nav-right {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .membros-nome {
-            font-size: 0.82rem;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .membros-nome strong {
-            color: var(--white);
-        }
-
-        .btn-logout {
-            padding: 0.4rem 1rem;
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.75rem;
-            font-weight: 500;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-logout:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-
-        .membros-hero {
-            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
-            padding: 4rem 5%;
-            text-align: center;
-        }
-
-        .membros-hero-tag {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 0.8rem;
-        }
-
-        .membros-hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.6rem, 3vw, 2.4rem);
-            font-weight: 700;
-            color: var(--white);
-            margin-bottom: 0.8rem;
-        }
-
-        .membros-hero p {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.55);
-        }
-
-        .membros-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 3rem 5%;
-            text-align: center;
-        }
-
-        .membros-card {
-            background: var(--white);
-            border-radius: 8px;
-            border: 1px solid var(--gray-light);
-            border-top: 4px solid var(--gold);
-            padding: 3rem 2rem;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-        }
-
-        .membros-card-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .membros-card h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--navy);
-            margin-bottom: 0.6rem;
-        }
-
-        .membros-card p {
-            font-size: 0.85rem;
-            color: var(--gray);
-            line-height: 1.8;
-            max-width: 440px;
-            margin: 0 auto 2rem;
-        }
-
-        .acesso-negado {
-            background: #fff8e1;
-            border: 1px solid #ffe082;
-            border-left: 4px solid #ffc107;
-            border-radius: 4px;
-            padding: 1rem 1.4rem;
-            font-size: 0.82rem;
-            color: #7b5800;
-            text-align: left;
-            margin-bottom: 2rem;
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/area-membros.css">
 </head>
 
 <body>
 
     <nav class="membros-nav">
-        <div class="membros-nav-logo">Onda de <span>Resultados</span></div>
+        <div class="membros-nav-logo">
+            <span class="membros-nav-logo-text">Onda de </span><span>Resultados</span>
+        </div>
         <div class="membros-nav-right">
             <span class="membros-nome">Olá, <strong id="nomeAluno">...</strong></span>
             <button class="btn-logout" onclick="fazerLogout()">Sair</button>
@@ -183,64 +49,7 @@
     </div>
 
     <script src="../js/api.js"></script>
-    <script>
-        // Se não estiver logado, manda para login
-        if (!api.estaLogado()) {
-            window.location.href = '/curso-banco/pages/login.html';
-        }
-
-        // Mostra o nome do aluno
-        const nome = localStorage.getItem('nome');
-        if (nome) document.getElementById('nomeAluno').textContent = nome;
-
-        // Verifica se tem acesso pago
-        async function verificarAcesso() {
-            const card = document.getElementById('cardConteudo');
-            const avisoNegado = document.getElementById('acessoNegado');
-
-            const timeout = setTimeout(() => {
-                card.innerHTML = `
-            <div class="membros-card-icon">⚠️</div>
-            <h2>Servidor iniciando...</h2>
-            <p>O servidor estava em repouso e está acordando. Aguarde 30 segundos e tente novamente.</p>
-            <button class="btn-primary" onclick="verificarAcesso()">Tentar novamente</button>`;
-            }, 10000);
-
-            try {
-                const res = await api.getModulos();
-                clearTimeout(timeout);
-
-                if (res.modulos && res.modulos.length > 1) {
-                    card.innerHTML = `
-                <div class="membros-card-icon">🎉</div>
-                <h2>Acesso Liberado!</h2>
-                <p>Seus módulos estão disponíveis.</p>`;
-                } else {
-                    avisoNegado.style.display = 'block';
-                    card.innerHTML = `
-                <div class="membros-card-icon">🔒</div>
-                <h2>Acesso Pendente</h2>
-                <p>Aguardando confirmação do pagamento.</p>
-                <a href="checkout.html" class="btn-primary" style="display:inline-block;text-decoration:none;">
-                    Realizar Pagamento
-                </a>`;
-                }
-            } catch {
-                clearTimeout(timeout);
-                card.innerHTML = `
-            <div class="membros-card-icon">⚠️</div>
-            <h2>Erro de conexão</h2>
-            <p>Não foi possível verificar seu acesso. Tente novamente.</p>
-            <button class="btn-primary" onclick="verificarAcesso()">Tentar novamente</button>`;
-            }
-        }
-
-        function fazerLogout() {
-            api.logout();
-        }
-
-        verificarAcesso();
-    </script>
+    <script src="../js/area-membros.js"></script>
 
 </body>
 
