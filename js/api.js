@@ -26,7 +26,7 @@ const api = {
     logout() {
         localStorage.removeItem('token');
         localStorage.removeItem('nome');
-        window.location.href = '/pages/login.html';
+        window.location.href = '/curso-banco/pages/login.html';
     },
 
     // Cadastro
