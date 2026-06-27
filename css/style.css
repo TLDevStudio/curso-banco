@@ -30,7 +30,6 @@ body {
     overflow-x: hidden;
 }
 
-/* NAV */
 nav {
     position: fixed;
     top: 0;
@@ -157,7 +156,6 @@ nav {
     color: var(--white) !important;
 }
 
-/* HERO */
 .hero {
     min-height: 100vh;
     padding-top: 68px;
@@ -269,7 +267,6 @@ nav {
     margin-top: 0.1rem;
 }
 
-/* MARKET PANEL */
 .market-panel {
     background: var(--gold-light);
     border: 1px solid rgba(0, 0, 0, 0.25);
@@ -512,7 +509,6 @@ nav {
     align-items: center;
 }
 
-/* MENTOR CARD */
 .mentor-card {
     position: relative;
     display: flex;
@@ -622,7 +618,6 @@ nav {
     margin-top: 0.8rem;
 }
 
-/* DIVIDER */
 .section-divider {
     display: flex;
     align-items: center;
@@ -648,7 +643,6 @@ nav {
     flex-shrink: 0;
 }
 
-/* SECTIONS */
 section {
     padding: 6rem 5%;
 }
@@ -683,7 +677,6 @@ section {
     max-width: 560px;
 }
 
-/* LEARN GRID */
 .learn-section {
     background: var(--off-white);
 }
@@ -830,7 +823,6 @@ section {
     text-transform: uppercase;
 }
 
-/* MODULES */
 .modules-section {
     background: var(--white);
 }
@@ -1093,7 +1085,6 @@ section {
     margin-bottom: 0.2rem;
 }
 
-/* CTA BANNER */
 .cta-banner {
     background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
     text-align: center;
@@ -1159,7 +1150,6 @@ section {
     letter-spacing: 0.04em;
 }
 
-/* FOOTER */
 footer {
     background: #111122;
     padding: 3rem 5% 2rem;
@@ -1221,7 +1211,6 @@ footer {
     text-align: center;
 }
 
-/* RESPONSIVE */
 @media (max-width: 900px) {
     .hero-inner {
         grid-template-columns: 1fr;
@@ -1264,7 +1253,17 @@ footer {
         max-width: 100%;
     }
 
-    /* Hamburger menu — mobile fix */
+    .nav {
+        grid-template-columns: 1fr auto;
+    }
+
+    .nav-logo {
+        grid-column: 1;
+        justify-self: start;
+        font-size: 1.1rem;
+        padding: 0.3rem 1rem 0.4rem;
+    }
+
     .nav-links {
         display: none;
         position: fixed;
@@ -1354,7 +1353,6 @@ footer {
     transform: translateY(0);
 }
 
-/* Aulas clicáveis — feedback de hover/focus */
 .lesson[role="button"]:hover {
     background: rgba(201, 168, 76, 0.06);
 }

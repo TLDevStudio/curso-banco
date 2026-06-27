@@ -17,11 +17,12 @@
 
     <nav>
 
+        <div class="nav-spacer"></div>
         <div class="nav-logo">
             <span class="nav-logo-text">Onda de </span><span>Resultados</span>
         </div>
         <ul class="nav-links" id="navLinks">
-            <li><a href="sobre.html">Sobre</a></li> <!-- página sobre separada -->
+            <li><a href="sobre.html">Sobre</a></li>
             <li><a href="#demos">Aulas Demo</a></li>
             <li><a href="#modulos">Módulos</a></li>
             <li><a href="#preco" class="nav-cta">Quero Participar</a></li>
@@ -44,7 +45,6 @@
                     consistência.
                 </p>
                 <div class="hero-stats">
-                    <!-- colocar os numeros atualizando automaticamente até o numero proposto real -->
                     <div>
                         <div class="hero-stat-num" data-target="2" data-suffix="+">0</div>
                         <div class="hero-stat-label">Anos de Banco</div>
@@ -82,7 +82,7 @@
         <div class="divider-diamond"></div>
     </div>
 
-    <!-- O QUE VOCÊ APRENDE -->
+    <!-- parte do conteúdo da mentoria -->
     <section class="learn-section reveal">
         <div class="section-inner">
             <p class="section-tag">Conteúdo da Mentoria</p>
@@ -133,7 +133,7 @@
         <div class="divider-diamond"></div>
     </div>
 
-    <!-- VIDEO DEMOS -->
+    <!-- vídeos com as demos da vídeo aula -->
     <section class="video-section reveal" id="demos">
         <div class="section-inner">
             <p class="section-tag">Aulas Demonstrativas</p>
@@ -170,7 +170,7 @@
         <div class="divider-diamond"></div>
     </div>
 
-    <!-- MÓDULOS DO CURSO -->
+    <!-- módulos do curso -->
     <section class="modules-section reveal" id="modulos">
         <div class="section-inner">
             <div class="modules-header">
@@ -187,7 +187,7 @@
                 </div>
             </div>
 
-            <!-- MÓDULO 1 — DESBLOQUEADO -->
+            <!-- módulo 1 (vamos deixar desbloqueado) -->
             <div class="module featured" id="mod1">
                 <div class="module-header" onclick="toggleModule('mod1')">
                     <span class="module-number">01</span>
@@ -207,8 +207,8 @@
                         forma clara e como lidar com as objeções mais comuns que todo gerente enfrenta.
                     </p>
 
-                    <!-- ✅ ÚNICA MUDANÇA: essa div substitui todo o bloco <div class="lesson-list">...</div> -->
-                    <div id="lista-mod1"></div>
+                    <div id="lista-mod1"></div> <!-- conteúdo dos módulos estão no script.js -->
+                    <!-- parte para comentários das aulas com respostas prontas -->
                     <div class="objection-box">
                         <h4>💬 Gestão de Objeções — Respostas Prontas</h4>
 
@@ -250,7 +250,7 @@
                     </div>
                 </div>
             </div>
-            <!-- MÓDULOS BLOQUEADOS -->
+            <!-- módulos bloqueados -->
             <div class="module" id="mod2">
                 <div class="module-header" onclick="toggleModule('mod2')">
                     <span class="module-number">02</span>
@@ -375,7 +375,7 @@
         </div>
     </section>
 
-    <!-- CTA FINAL -->
+    <!-- CTA final -->
     <section class="cta-banner reveal" id="preco">
         <div class="section-tag">Inscrição Aberta</div>
         <h2>Comece a vender como um profissional que obtém resultados</h2>
@@ -390,7 +390,6 @@
         <p class="cta-guarantee">✓ 7 dias de garantia · ✓ Acesso imediato · ✓ Suporte via comunidade</p>
     </section>
 
-    <!-- FOOTER -->
     <footer>
         <div class="footer-inner">
             <div>
