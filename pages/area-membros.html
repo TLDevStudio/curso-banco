@@ -10,43 +10,815 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/area-membros.css">
+
+    <style>
+        /* ============================================================
+           RESET & TOKENS
+           ============================================================ */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --gold: #C9A84C;
+            --gold-light: #E8C97A;
+            --gold-dark: #A07830;
+            --navy: #1A1A2E;
+            --navy-mid: #24244A;
+            --off-white: #F8F6F0;
+            --white: #FFFFFF;
+            --gray: #6B6B6B;
+            --gray-light: #E8E8E8;
+            --green: #4caf50;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--off-white);
+            color: var(--navy);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* ============================================================
+           NAV
+           ============================================================ */
+        .membros-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.97);
+            border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+            backdrop-filter: blur(8px);
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            height: 68px;
+        }
+
+        .membros-nav-logo {
+            grid-column: 2;
+            justify-self: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.45rem;
+            font-weight: 900;
+            letter-spacing: 0.02em;
+            color: var(--white);
+            padding: 0.45rem 1.6rem 0.65rem;
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+            background: #0a4a7c;
+            line-height: 1.2;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .membros-nav-logo::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, #1a6fa8 0%, #1a8fbf 35%, #0d6e9e 60%, #0a4a7c 100%);
+            z-index: 0;
+        }
+
+        .membros-nav-logo::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            z-index: 1;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 70' preserveAspectRatio='none'%3E%3Cpath d='M0,42 C30,28 60,52 90,40 C120,28 150,48 180,36 C210,24 240,46 270,34 C300,22 330,44 360,32 C380,24 392,30 400,28 L400,70 L0,70 Z' fill='rgba(255,255,255,0.18)'/%3E%3Cpath d='M0,52 C25,40 55,58 85,48 C115,38 145,56 175,46 C205,36 235,54 265,44 C295,34 325,52 355,44 C375,38 390,46 400,44 L400,70 L0,70 Z' fill='rgba(255,255,255,0.28)'/%3E%3Cpath d='M0,60 C20,54 45,64 70,59 C95,54 120,62 145,57 C170,52 195,62 220,58 C245,54 270,63 295,59 C320,55 350,63 375,60 C385,58 393,61 400,60 L400,70 L0,70 Z' fill='rgba(255,255,255,0.42)'/%3E%3C/svg%3E");
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            pointer-events: none;
+        }
+
+        .membros-nav-logo span {
+            position: relative;
+            z-index: 2;
+            color: var(--white);
+        }
+
+        .membros-nav-logo-text {
+            position: relative;
+            z-index: 2;
+            color: var(--white);
+        }
+
+        .membros-nav-right {
+            grid-column: 3;
+            justify-self: end;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .membros-nome {
+            font-size: 0.82rem;
+            color: var(--gray);
+        }
+
+        .membros-nome strong {
+            color: var(--navy);
+        }
+
+        .btn-logout {
+            padding: 0.4rem 1rem;
+            background: transparent;
+            border: 1px solid var(--gray-light);
+            border-radius: 4px;
+            color: var(--gray);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-logout:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* ============================================================
+           HERO FAIXA
+           ============================================================ */
+        .membros-hero {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+            padding: 3rem 5%;
+            text-align: center;
+            margin-top: 68px;
+        }
+
+        .membros-hero-tag {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.6rem;
+        }
+
+        .membros-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .membros-hero p {
+            font-size: 0.88rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* progresso geral */
+        .progresso-geral {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.4rem;
+            margin-top: 1.8rem;
+            flex-wrap: wrap;
+        }
+
+        .prog-stat {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(201, 168, 76, 0.25);
+            border-radius: 6px;
+            padding: 0.8rem 1.4rem;
+            min-width: 100px;
+        }
+
+        .prog-stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .prog-stat-label {
+            font-size: 0.68rem;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.2rem;
+        }
+
+        /* barra de progresso geral */
+        .prog-bar-wrap {
+            width: 100%;
+            max-width: 500px;
+            margin: 1.4rem auto 0;
+        }
+
+        .prog-bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.45);
+            margin-bottom: 0.4rem;
+        }
+
+        .prog-bar-track {
+            height: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .prog-bar-fill {
+            height: 100%;
+            background: var(--gold);
+            border-radius: 3px;
+            transition: width 0.8s ease;
+        }
+
+        /* ============================================================
+           CONTEÚDO PRINCIPAL
+           ============================================================ */
+        .membros-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 5% 5rem;
+        }
+
+        /* ============================================================
+           SEÇÃO DE MÓDULOS (idêntica ao index, mas totalmente aberta)
+           ============================================================ */
+        .section-tag {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.8rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.4rem, 2.5vw, 2rem);
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1.25;
+            margin-bottom: 0.8rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+        }
+
+        /* módulo */
+        .module {
+            border: 1px solid var(--gray-light);
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+            background: var(--white);
+        }
+
+        .module:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+        }
+
+        .module-header {
+            display: flex;
+            align-items: center;
+            padding: 1.4rem 1.6rem;
+            cursor: pointer;
+            user-select: none;
+            background: var(--white);
+            gap: 1.2rem;
+        }
+
+        .module-header:hover {
+            background: #FDFBF7;
+        }
+
+        .module-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--gold);
+            min-width: 2.5rem;
+            line-height: 1;
+        }
+
+        .module-title-wrap {
+            flex: 1;
+        }
+
+        .module-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.2rem;
+        }
+
+        .module-subtitle {
+            font-size: 0.78rem;
+            color: var(--gray);
+        }
+
+        .module-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-left: auto;
+        }
+
+        .module-lessons {
+            font-size: 0.75rem;
+            color: var(--gray);
+            white-space: nowrap;
+        }
+
+        .module-body {
+            border-top: 1px solid var(--gray-light);
+            background: var(--off-white);
+        }
+
+        .module-body.collapsed {
+            display: none;
+        }
+
+        .module-intro {
+            padding: 1.4rem 1.6rem 0.8rem;
+            font-size: 0.85rem;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* aulas */
+        .lesson {
+            display: flex;
+            align-items: flex-start;
+            padding: 0.9rem 1.6rem;
+            gap: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .lesson:last-child {
+            border-bottom: none;
+        }
+
+        .lesson:hover {
+            background: rgba(201, 168, 76, 0.06);
+        }
+
+        .lesson-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+            background: rgba(201, 168, 76, 0.12);
+            color: var(--gold);
+        }
+
+        .lesson-text {
+            flex: 1;
+        }
+
+        .lesson-title {
+            font-size: 0.87rem;
+            font-weight: 500;
+            color: var(--navy);
+        }
+
+        .lesson-desc {
+            font-size: 0.75rem;
+            color: var(--gray);
+            line-height: 1.5;
+            margin-top: 0.2rem;
+        }
+
+        .lesson-duration {
+            font-size: 0.72rem;
+            color: var(--gray);
+            white-space: nowrap;
+            align-self: center;
+        }
+
+        /* barra de progresso da aula */
+        .lesson-bar-wrap {
+            margin-top: 5px;
+            height: 3px;
+            border-radius: 2px;
+            background: rgba(201, 168, 76, 0.15);
+            overflow: hidden;
+        }
+
+        .lesson-bar {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.4s ease;
+        }
+
+        /* objection box */
+        .objection-box {
+            margin: 0 1.6rem 1.2rem;
+            background: var(--white);
+            border: 1px solid var(--gray-light);
+            border-left: 3px solid var(--gold);
+            border-radius: 0 4px 4px 0;
+            padding: 1rem 1.2rem;
+        }
+
+        .objection-box h4 {
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.8rem;
+        }
+
+        .objection-item {
+            margin-bottom: 0.9rem;
+        }
+
+        .objection-q {
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--navy);
+        }
+
+        .objection-a {
+            font-size: 0.79rem;
+            color: var(--gray);
+            line-height: 1.65;
+            margin-top: 0.3rem;
+        }
+
+        .module-cta {
+            padding: 1rem 1.6rem 1.4rem;
+            text-align: right;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--white);
+            padding: 0.85rem 2rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: background 0.2s, transform 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-dark);
+            transform: translateY(-1px);
+        }
+
+        /* chevron toggle */
+        .module-chevron {
+            font-size: 0.7rem;
+            color: var(--gray);
+            transition: transform 0.25s;
+            flex-shrink: 0;
+        }
+
+        .module.open .module-chevron {
+            transform: rotate(180deg);
+        }
+
+        /* anel de progresso */
+        .anel-container {
+            display: flex;
+            align-items: center;
+            margin-left: 4px;
+        }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        .membros-footer {
+            background: #111122;
+            padding: 2rem 5%;
+            text-align: center;
+        }
+
+        .membros-footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.4rem;
+        }
+
+        .membros-footer-logo span {
+            color: var(--gold);
+        }
+
+        .membros-footer p {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* ============================================================
+           PLAYER MODAL — injetado via JS (mesmos estilos do script.js)
+           ============================================================ */
+
+        /* ============================================================
+           RESPONSIVO
+           ============================================================ */
+        @media (max-width: 900px) {
+            .membros-nav {
+                grid-template-columns: auto 1fr;
+            }
+
+            .membros-nav-logo {
+                grid-column: 1;
+                font-size: 1.1rem;
+                padding: 0.3rem 1rem 0.4rem;
+            }
+
+            .membros-nav-right {
+                grid-column: 2;
+            }
+
+            .membros-nome {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .module-header {
+                padding: 1rem 1rem;
+                gap: 0.8rem;
+            }
+
+            .module-lessons {
+                display: none;
+            }
+
+            .lesson {
+                padding: 0.8rem 1rem;
+            }
+
+            .progresso-geral {
+                gap: 0.8rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
+    <!-- NAV -->
     <nav class="membros-nav">
         <div class="membros-nav-logo">
             <span class="membros-nav-logo-text">Onda de </span><span>Resultados</span>
         </div>
         <div class="membros-nav-right">
-            <span class="membros-nome">Olá, <strong id="nomeAluno">...</strong></span>
+            <span class="membros-nome">Olá, <strong id="nomeAluno">Aluno</strong></span>
             <button class="btn-logout" onclick="fazerLogout()">Sair</button>
         </div>
     </nav>
 
+    <!-- HERO COM PROGRESSO -->
     <div class="membros-hero">
         <p class="membros-hero-tag">Área de Membros</p>
         <h1>Bem-vindo à Mentoria</h1>
         <p>Seu espaço exclusivo de aprendizado em vendas bancárias</p>
+
+        <div class="progresso-geral">
+            <div class="prog-stat">
+                <div class="prog-stat-num" id="statAulas">0</div>
+                <div class="prog-stat-label">Aulas Concluídas</div>
+            </div>
+            <div class="prog-stat">
+                <div class="prog-stat-num" id="statModulos">0</div>
+                <div class="prog-stat-label">Módulos Iniciados</div>
+            </div>
+            <div class="prog-stat">
+                <div class="prog-stat-num" id="statTempo">0h</div>
+                <div class="prog-stat-label">Assistidas</div>
+            </div>
+        </div>
+
+        <div class="prog-bar-wrap">
+            <div class="prog-bar-label">
+                <span>Progresso geral</span>
+                <span id="pctGeral">0%</span>
+            </div>
+            <div class="prog-bar-track">
+                <div class="prog-bar-fill" id="barraGeral" style="width:0%"></div>
+            </div>
+        </div>
     </div>
 
+    <!-- CONTEÚDO -->
     <div class="membros-content">
 
-        <div class="acesso-negado" id="acessoNegado">
-            🔒 Seu acesso ainda não foi liberado. Após a confirmação do pagamento,
-            você receberá acesso completo aos módulos. Em caso de dúvidas,
-            entre em contato com o suporte.
+        <p class="section-tag">Grade de Conteúdo</p>
+        <h2 class="section-title">Módulos da Mentoria</h2>
+        <p class="section-subtitle">Todos os módulos desbloqueados. Clique em qualquer aula para assistir.</p>
+
+        <!-- MÓDULO 1 -->
+        <div class="module open" id="mod1">
+            <div class="module-header" onclick="toggleModule('mod1')">
+                <span class="module-number">01</span>
+                <div class="module-title-wrap">
+                    <div class="module-title">Consórcio — Do Básico ao Fechamento</div>
+                    <div class="module-subtitle">Como vender o produto mais incompreendido do banco</div>
+                </div>
+                <div class="module-meta">
+                    <span class="module-lessons">8 aulas · ~2h30</span>
+                    <div class="anel-container" id="anel-mod1"></div>
+                    <span class="module-chevron">▼</span>
+                </div>
+            </div>
+            <div class="module-body" id="mod1-body">
+                <p class="module-intro">
+                    O consórcio é um dos produtos com maior rejeição inicial — e maior potencial de fechamento
+                    quando bem explicado. Neste módulo você vai entender a lógica do produto, como apresentá-lo
+                    de forma clara e como lidar com as objeções mais comuns que todo gerente enfrenta.
+                </p>
+                <div id="lista-mod1"></div>
+
+                <div class="objection-box">
+                    <h4>💬 Gestão de Objeções — Respostas Prontas</h4>
+                    <div class="objection-item">
+                        <div class="objection-q">❝ Consórcio demora muito, eu preciso do bem agora ❞</div>
+                        <div class="objection-a">"Entendo, e essa dúvida é super comum. Mas deixa eu te mostrar algo:
+                            muitos clientes são contemplados nos primeiros meses, especialmente quando há lance. Além
+                            disso, se você tem uma data limite, a gente pode simular o quanto você precisaria de lance
+                            para antecipar. Você quer ver como ficaria no seu caso?"</div>
+                    </div>
+                    <div class="objection-item">
+                        <div class="objection-q">❝ Prefiro fazer um financiamento, pelo menos sei quando vou receber ❞
+                        </div>
+                        <div class="objection-a">"Faz sentido. No financiamento você tem a certeza da data, mas paga em
+                            torno de 30 a 50% a mais pelo bem no longo prazo por causa dos juros. No consórcio você paga
+                            exatamente o valor do bem. A pergunta que eu te faço é: você prefere a certeza imediata ou o
+                            melhor custo-benefício?"</div>
+                    </div>
+                    <div class="objection-item">
+                        <div class="objection-q">❝ Já tentei e não fui contemplado rápido ❞</div>
+                        <div class="objection-a">"Posso entender a frustração. A grande diferença está na estratégia de
+                            lance. A maioria das pessoas entra sem planejar o lance e aí fica esperando o sorteio. Mas
+                            quem entende o mecanismo usa o momento certo do grupo para dar um lance certeiro."</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="membros-card" id="cardConteudo">
-            <div class="membros-card-icon">⏳</div>
-            <h2>Verificando acesso...</h2>
-            <p>Aguarde um momento enquanto verificamos suas permissões.</p>
+        <!-- MÓDULO 2 -->
+        <div class="module" id="mod2">
+            <div class="module-header" onclick="toggleModule('mod2')">
+                <span class="module-number">02</span>
+                <div class="module-title-wrap">
+                    <div class="module-title">Crédito Pessoal e Consignado</div>
+                    <div class="module-subtitle">Identificar necessidade, simular e fechar — sem pressão</div>
+                </div>
+                <div class="module-meta">
+                    <span class="module-lessons">6 aulas · ~1h50</span>
+                    <div class="anel-container" id="anel-mod2"></div>
+                    <span class="module-chevron">▼</span>
+                </div>
+            </div>
+            <div class="module-body collapsed" id="mod2-body">
+                <p class="module-intro">
+                    Crédito pessoal e consignado são os produtos de maior volume no banco — e os mais mal vendidos.
+                    Neste módulo você aprende a diagnosticar a real necessidade do cliente, fazer simulações que
+                    convencem e conduzir o fechamento sem gerar desconforto.
+                </p>
+                <div id="lista-mod2"></div>
+            </div>
         </div>
 
-    </div>
+        <!-- MÓDULO 3 -->
+        <div class="module" id="mod3">
+            <div class="module-header" onclick="toggleModule('mod3')">
+                <span class="module-number">03</span>
+                <div class="module-title-wrap">
+                    <div class="module-title">Financiamento Imobiliário</div>
+                    <div class="module-subtitle">Como tornar o sonho da casa própria uma venda concreta</div>
+                </div>
+                <div class="module-meta">
+                    <span class="module-lessons">7 aulas · ~2h10</span>
+                    <div class="anel-container" id="anel-mod3"></div>
+                    <span class="module-chevron">▼</span>
+                </div>
+            </div>
+            <div class="module-body collapsed" id="mod3-body">
+                <p class="module-intro">
+                    O financiamento imobiliário é a venda mais consultiva do banco. Aqui você aprende a conduzir
+                    toda a jornada — do primeiro contato à assinatura — com clareza, segurança e argumentação sólida.
+                </p>
+                <div id="lista-mod3"></div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 4 -->
+        <div class="module" id="mod4">
+            <div class="module-header" onclick="toggleModule('mod4')">
+                <span class="module-number">04</span>
+                <div class="module-title-wrap">
+                    <div class="module-title">Cartão de Crédito e Seguros</div>
+                    <div class="module-subtitle">Cross-sell de alta eficiência sem forçar a barra</div>
+                </div>
+                <div class="module-meta">
+                    <span class="module-lessons">5 aulas · ~1h30</span>
+                    <div class="anel-container" id="anel-mod4"></div>
+                    <span class="module-chevron">▼</span>
+                </div>
+            </div>
+            <div class="module-body collapsed" id="mod4-body">
+                <p class="module-intro">
+                    Como incluir cartão e seguros na conversa de forma natural, aumentando o ticket médio de cada
+                    atendimento sem que o cliente sinta que está sendo empurrado para uma venda.
+                </p>
+                <div id="lista-mod4"></div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 5 -->
+        <div class="module" id="mod5">
+            <div class="module-header" onclick="toggleModule('mod5')">
+                <span class="module-number">05</span>
+                <div class="module-title-wrap">
+                    <div class="module-title">Gestão de Carteira e Fidelização</div>
+                    <div class="module-subtitle">O cliente que já comprou é o melhor cliente para a próxima venda</div>
+                </div>
+                <div class="module-meta">
+                    <span class="module-lessons">6 aulas · ~2h00</span>
+                    <div class="anel-container" id="anel-mod5"></div>
+                    <span class="module-chevron">▼</span>
+                </div>
+            </div>
+            <div class="module-body collapsed" id="mod5-body">
+                <p class="module-intro">
+                    Estratégias de relacionamento, régua de contato e como transformar um atendimento pontual em
+                    um cliente de longo prazo que indica, volta e compra mais.
+                </p>
+                <div id="lista-mod5"></div>
+            </div>
+        </div>
+
+        <!-- MÓDULO 6 -->
+        <div class="module" id="mod6">
+            <div class="module-header" onclick="toggleModule('mod6')">
+                <span class="module-number">06</span>
+                <div class="module-title-wrap">
+                    <div class="module-title">Planejamento de Metas e Rotina de Alta Performance</div>
+                    <div class="module-subtitle">Como estruturar sua semana para nunca mais perder uma meta</div>
+                </div>
+                <div class="module-meta">
+                    <span class="module-lessons">4 aulas · ~1h20</span>
+                    <div class="anel-container" id="anel-mod6"></div>
+                    <span class="module-chevron">▼</span>
+                </div>
+            </div>
+            <div class="module-body collapsed" id="mod6-body">
+                <p class="module-intro">
+                    Método de planejamento semanal, gestão de pipeline e mindset para manter a performance nos
+                    momentos de maior pressão do ambiente bancário.
+                </p>
+                <div id="lista-mod6"></div>
+            </div>
+        </div>
+
+    </div><!-- /membros-content -->
+
+    <!-- FOOTER -->
+    <footer class="membros-footer">
+        <div class="membros-footer-logo">Onda de <span>Resultados</span></div>
+        <p>© 2026 · Mentoria de vendas bancárias de alto desempenho</p>
+    </footer>
 
     <script src="../js/api.js"></script>
     <script src="../js/area-membros.js"></script>
