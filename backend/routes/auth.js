@@ -26,16 +26,15 @@ router.post('/cadastro', async (req, res) => {
             return res.status(400).json({ erro: 'Email já cadastrado' });
 
         const hash = await bcrypt.hash(senha, 10);
-        const user = await User.create({ nome, email, senha: hash });
+        // pago: false é o default — só o admin pode liberar
+        const user = await User.create({ nome, email, senha: hash, pago: false });
 
-        const token = jwt.sign(
-            { id: user._id, pago: user.pago },
-            process.env.JWT_SECRET,
-            { expiresIn: '7d' }
-        );
+        // ⚠️  NÃO retorna token no cadastro.
+        // O aluno precisa pagar primeiro, depois fazer login manualmente.
+        res.json({ ok: true, nome: user.nome });
 
-        res.json({ token, nome: user.nome, pago: user.pago });
     } catch (err) {
+        console.error(err);
         res.status(500).json({ erro: 'Erro no servidor' });
     }
 });
@@ -52,6 +51,7 @@ router.post('/login', async (req, res) => {
         if (!ok)
             return res.status(401).json({ erro: 'Email ou senha incorretos' });
 
+        // ✅ Lê pago diretamente do banco (não do token antigo)
         const token = jwt.sign(
             { id: user._id, pago: user.pago },
             process.env.JWT_SECRET,
@@ -60,6 +60,7 @@ router.post('/login', async (req, res) => {
 
         res.json({ token, nome: user.nome, pago: user.pago });
     } catch (err) {
+        console.error(err);
         res.status(500).json({ erro: 'Erro no servidor' });
     }
 });

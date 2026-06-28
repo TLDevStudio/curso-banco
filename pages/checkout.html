@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout · Onda de Resultados</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- SDK Mercado Pago -->
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <style>
+        /* ── Layout ── */
+        body {
+            background: var(--off-white);
+        }
+
+        .checkout-wrap {
+            min-height: 100vh;
+            padding: 88px 5% 4rem;
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 2.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        /* ── Resumo do produto ── */
+        .checkout-summary {
+            position: sticky;
+            top: 88px;
+        }
+
+        .summary-tag {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.6rem;
+        }
+
+        .summary-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--navy);
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-title em {
+            font-style: normal;
+            color: var(--gold);
+        }
+
+        .summary-subtitle {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .summary-price-box {
+            background: var(--navy);
+            border-radius: 6px;
+            padding: 1.6rem 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-price-label {
+            font-size: 0.72rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 0.4rem;
+        }
+
+        .summary-price-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+        }
+
+        .summary-price-period {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 0.3rem;
+        }
+
+        .summary-includes {
+            margin-top: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .summary-include-item {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .summary-include-item::before {
+            content: '✓';
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .summary-guarantee {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: var(--white);
+            border: 1px solid var(--gray-light);
+            border-left: 3px solid var(--gold);
+            border-radius: 0 4px 4px 0;
+            padding: 0.9rem 1.1rem;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .summary-guarantee-icon {
+            font-size: 1.6rem;
+            flex-shrink: 0;
+        }
+
+        .summary-guarantee strong {
+            color: var(--navy);
+            display: block;
+            margin-bottom: 0.15rem;
+        }
+
+        .summary-modules {
+            margin-top: 1.5rem;
+        }
+
+        .summary-modules-title {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.8rem;
+        }
+
+        .summary-module-item {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--gray-light);
+            font-size: 0.82rem;
+            color: var(--navy);
+        }
+
+        .summary-module-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-module-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--gold);
+            min-width: 1.4rem;
+        }
+
+        /* ── Formulário ── */
+        .checkout-form-wrap {
+            background: var(--white);
+            border: 1px solid var(--gray-light);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .checkout-form-header {
+            background: var(--navy);
+            padding: 1.2rem 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .checkout-form-header-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(201, 168, 76, 0.15);
+            border: 1px solid rgba(201, 168, 76, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .checkout-form-header-text {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .checkout-form-header-sub {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.45);
+            margin-top: 0.15rem;
+        }
+
+        .checkout-form-body {
+            padding: 1.8rem;
+        }
+
+        /* Abas de método de pagamento */
+        .payment-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 1.8rem;
+            border: 1px solid var(--gray-light);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .payment-tab {
+            flex: 1;
+            padding: 0.75rem 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            background: var(--off-white);
+            color: var(--gray);
+            transition: all 0.2s;
+            border-right: 1px solid var(--gray-light);
+        }
+
+        .payment-tab:last-child {
+            border-right: none;
+        }
+
+        .payment-tab.active {
+            background: var(--gold);
+            color: var(--white);
+        }
+
+        .payment-tab:hover:not(.active) {
+            background: var(--gray-light);
+            color: var(--navy);
+        }
+
+        .payment-panel {
+            display: none;
+        }
+
+        .payment-panel.active {
+            display: block;
+        }
+
+        /* Campos */
+        .field-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .field-group label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--navy);
+            letter-spacing: 0.04em;
+            margin-bottom: 0.4rem;
+        }
+
+        .field-group input,
+        .field-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray-light);
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: var(--navy);
+            background: var(--white);
+            transition: border-color 0.2s;
+            outline: none;
+        }
+
+        .field-group input:focus,
+        .field-group select:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.12);
+        }
+
+        .field-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Container do Mercado Pago */
+        #mp-card-form {
+            min-height: 80px;
+        }
+
+        #cardNumber,
+        #expirationDate,
+        #securityCode,
+        #cardholderName,
+        #issuer,
+        #installments {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray-light);
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: var(--navy);
+            background: var(--white);
+            transition: border-color 0.2s;
+            outline: none;
+            box-sizing: border-box;
+            margin-bottom: 1.2rem;
+        }
+
+        /* PIX */
+        .pix-info {
+            background: var(--off-white);
+            border: 1px solid var(--gray-light);
+            border-radius: 6px;
+            padding: 1.4rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .pix-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pix-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: var(--navy);
+            margin-bottom: 0.4rem;
+        }
+
+        .pix-info p {
+            font-size: 0.82rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .pix-qr-wrap {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.4rem;
+            background: var(--white);
+            border: 2px solid var(--gold);
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .pix-qr-wrap.visible {
+            display: flex;
+        }
+
+        .pix-qr-wrap img {
+            width: 180px;
+            height: 180px;
+            border: 6px solid var(--white);
+            border-radius: 4px;
+        }
+
+        .pix-copy-btn {
+            background: transparent;
+            border: 1.5px solid var(--gold);
+            color: var(--gold);
+            padding: 0.6rem 1.5rem;
+            border-radius: 2px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .pix-copy-btn:hover {
+            background: var(--gold);
+            color: var(--white);
+        }
+
+        /* Boleto */
+        .boleto-info {
+            background: var(--off-white);
+            border: 1px solid var(--gray-light);
+            border-radius: 6px;
+            padding: 1.4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .boleto-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .boleto-info p {
+            font-size: 0.82rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* Botão de pagamento */
+        .btn-pagar {
+            width: 100%;
+            background: var(--gold);
+            color: var(--white);
+            padding: 1rem;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .btn-pagar:hover:not(:disabled) {
+            background: var(--gold-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-pagar:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-pagar .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: none;
+        }
+
+        .btn-pagar.loading .spinner {
+            display: block;
+        }
+
+        .btn-pagar.loading .btn-label {
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Mensagens de erro/sucesso */
+        .checkout-msg {
+            display: none;
+            padding: 0.9rem 1.1rem;
+            border-radius: 4px;
+            font-size: 0.84rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.5;
+        }
+
+        .checkout-msg.erro {
+            background: rgba(239, 83, 80, 0.08);
+            border: 1px solid rgba(239, 83, 80, 0.3);
+            color: #c62828;
+            display: block;
+        }
+
+        .checkout-msg.sucesso {
+            background: rgba(76, 175, 80, 0.08);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            color: #2e7d32;
+            display: block;
+        }
+
+        /* Segurança */
+        .checkout-security {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            font-size: 0.72rem;
+            color: var(--gray);
+            letter-spacing: 0.04em;
+        }
+
+        /* ── Responsivo ── */
+        @media (max-width: 900px) {
+            .checkout-wrap {
+                grid-template-columns: 1fr;
+                padding-top: 80px;
+            }
+
+            .checkout-summary {
+                position: static;
+                order: 2;
+            }
+
+            .checkout-form-wrap {
+                order: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="nav-spacer"></div>
+        <a href="../index.html" class="nav-logo">
+            <span class="nav-logo-text">Onda de </span><span>Resultados</span>
+        </a>
+        <div></div>
+    </nav>
+
+    <div class="checkout-wrap">
+
+        <!-- ── FORMULÁRIO DE PAGAMENTO ── -->
+        <div class="checkout-form-wrap">
+
+            <div class="checkout-form-header">
+                <div class="checkout-form-header-icon">🔒</div>
+                <div>
+                    <div class="checkout-form-header-text">Pagamento Seguro</div>
+                    <div class="checkout-form-header-sub">Ambiente criptografado · Mercado Pago</div>
+                </div>
+            </div>
+
+            <div class="checkout-form-body">
+
+                <!-- Mensagem de erro/sucesso -->
+                <div class="checkout-msg" id="checkoutMsg"></div>
+
+                <!-- Abas de método -->
+                <div class="payment-tabs">
+                    <button class="payment-tab active" onclick="mudarAba('cartao')">💳 Cartão</button>
+                    <button class="payment-tab" onclick="mudarAba('pix')">⚡ PIX</button>
+                    <button class="payment-tab" onclick="mudarAba('boleto')">📄 Boleto</button>
+                </div>
+
+                <!-- ── CARTÃO DE CRÉDITO ── -->
+                <div class="payment-panel active" id="panel-cartao">
+
+                    <div class="field-group">
+                        <label for="cardholderName">Nome no cartão</label>
+                        <input type="text" id="cardholderName" placeholder="Como aparece no cartão"
+                            autocomplete="cc-name" />
+                    </div>
+
+                    <div class="field-group">
+                        <label for="cardNumber">Número do cartão</label>
+                        <div id="cardNumber"></div>
+                    </div>
+
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label for="expirationDate">Validade</label>
+                            <div id="expirationDate"></div>
+                        </div>
+                        <div class="field-group">
+                            <label for="securityCode">CVV</label>
+                            <div id="securityCode"></div>
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="installments">Parcelamento</label>
+                        <select id="installments">
+                            <option value="1">1x de R$ 497,00 (sem juros)</option>
+                            <option value="2">2x de R$ 248,50 (sem juros)</option>
+                            <option value="3">3x de R$ 165,67 (sem juros)</option>
+                            <option value="6">6x de R$ 82,83 (sem juros)</option>
+                            <option value="12">12x de R$ 41,42 (sem juros)</option>
+                        </select>
+                    </div>
+
+                    <!-- CPF do titular -->
+                    <div class="field-group">
+                        <label for="cpfCartao">CPF do titular</label>
+                        <input type="text" id="cpfCartao" placeholder="000.000.000-00" maxlength="14" />
+                    </div>
+
+                    <button class="btn-pagar" id="btnPagarCartao" onclick="pagarCartao()">
+                        <div class="spinner"></div>
+                        <span class="btn-label">🔒 Pagar R$ 497,00</span>
+                    </button>
+                </div>
+
+                <!-- ── PIX ── -->
+                <div class="payment-panel" id="panel-pix">
+
+                    <div class="pix-info">
+                        <div class="pix-icon">⚡</div>
+                        <h3>Pague com PIX</h3>
+                        <p>Aprovação imediata após o pagamento.<br>
+                            O QR Code expira em <strong>30 minutos</strong>.</p>
+                    </div>
+
+                    <!-- CPF para PIX -->
+                    <div class="field-group">
+                        <label for="cpfPix">CPF</label>
+                        <input type="text" id="cpfPix" placeholder="000.000.000-00" maxlength="14" />
+                    </div>
+
+                    <!-- QR Code (aparece após gerar) -->
+                    <div class="pix-qr-wrap" id="pixQrWrap">
+                        <img id="pixQrImg" src="" alt="QR Code PIX" />
+                        <p style="font-size:0.8rem; color:var(--gray);">Ou copie o código abaixo:</p>
+                        <input type="text" id="pixCopiaECola" readonly
+                            style="width:100%;padding:0.6rem;border:1px solid var(--gray-light);border-radius:4px;font-size:0.75rem;color:var(--gray);background:var(--off-white);" />
+                        <button class="pix-copy-btn" onclick="copiarPix()">Copiar código</button>
+                        <p style="font-size:0.78rem;color:var(--gray);margin-top:0.5rem;">
+                            Após o pagamento, <strong>aguarde a confirmação</strong>.<br>
+                            O acesso é liberado pelo admin em até 24h.
+                        </p>
+                    </div>
+
+                    <button class="btn-pagar" id="btnGerarPix" onclick="gerarPix()">
+                        <div class="spinner"></div>
+                        <span class="btn-label">⚡ Gerar QR Code PIX · R$ 497,00</span>
+                    </button>
+                </div>
+
+                <!-- ── BOLETO ── -->
+                <div class="payment-panel" id="panel-boleto">
+
+                    <div class="boleto-info">
+                        <h3>📄 Boleto Bancário</h3>
+                        <p>Vencimento em <strong>3 dias úteis</strong>. O acesso é liberado após a compensação
+                            bancária (1-2 dias úteis após o pagamento).</p>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="cpfBoleto">CPF</label>
+                        <input type="text" id="cpfBoleto" placeholder="000.000.000-00" maxlength="14" />
+                    </div>
+
+                    <div class="field-group">
+                        <label for="cepBoleto">CEP</label>
+                        <input type="text" id="cepBoleto" placeholder="00000-000" maxlength="9" />
+                    </div>
+
+                    <button class="btn-pagar" id="btnGerarBoleto" onclick="gerarBoleto()">
+                        <div class="spinner"></div>
+                        <span class="btn-label">📄 Gerar Boleto · R$ 497,00</span>
+                    </button>
+
+                    <div id="boletoUrl" style="display:none; margin-top:1rem; text-align:center;">
+                        <a id="boletoLink" href="#" target="_blank" class="btn-primary"
+                            style="display:inline-block;">Abrir / Imprimir Boleto</a>
+                    </div>
+                </div>
+
+                <!-- Selos de segurança -->
+                <div class="checkout-security">
+                    🔒 Pagamento 100% seguro &nbsp;·&nbsp; 🛡️ Dados criptografados &nbsp;·&nbsp; ✓ Mercado Pago
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ── RESUMO DO PRODUTO ── -->
+        <div class="checkout-summary">
+            <p class="summary-tag">Mentoria Exclusiva</p>
+            <h1 class="summary-title">Onda de <em>Resultados</em></h1>
+            <p class="summary-subtitle">Mentoria completa de vendas bancárias com um gerente do Itaú — consórcio,
+                crédito, financiamento e muito mais.</p>
+
+            <div class="summary-price-box">
+                <div class="summary-price-label">Investimento único</div>
+                <div class="summary-price-value">R$ 497</div>
+                <div class="summary-price-period">/ acesso vitalício</div>
+
+                <div class="summary-includes">
+                    <div class="summary-include-item">6 módulos completos (36 aulas)</div>
+                    <div class="summary-include-item">Acesso vitalício e atualizações</div>
+                    <div class="summary-include-item">Scripts e modelos prontos</div>
+                    <div class="summary-include-item">Comunidade exclusiva de alunos</div>
+                    <div class="summary-include-item">Suporte direto com o mentor</div>
+                </div>
+            </div>
+
+            <div class="summary-guarantee">
+                <div class="summary-guarantee-icon">🛡️</div>
+                <div>
+                    <strong>7 dias de garantia</strong>
+                    Se não gostar, devolvemos 100% do valor sem perguntas.
+                </div>
+            </div>
+
+            <div class="summary-modules">
+                <div class="summary-modules-title">O que está incluso</div>
+                <div class="summary-module-item">
+                    <span class="summary-module-num">01</span>
+                    Consórcio — Do Básico ao Fechamento
+                </div>
+                <div class="summary-module-item">
+                    <span class="summary-module-num">02</span>
+                    Crédito Pessoal e Consignado
+                </div>
+                <div class="summary-module-item">
+                    <span class="summary-module-num">03</span>
+                    Financiamento Imobiliário
+                </div>
+                <div class="summary-module-item">
+                    <span class="summary-module-num">04</span>
+                    Cartão de Crédito e Seguros
+                </div>
+                <div class="summary-module-item">
+                    <span class="summary-module-num">05</span>
+                    Gestão de Carteira e Fidelização
+                </div>
+                <div class="summary-module-item">
+                    <span class="summary-module-num">06</span>
+                    Planejamento de Metas e Alta Performance
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /checkout-wrap -->
+
+    <script src="../js/api.js"></script>
+    <script>
+        // ================================================================
+        //  CHECKOUT.JS — Mercado Pago SDK v2
+        // ================================================================
+
+        const CHECKOUT_API = 'https://curso-banco-api.onrender.com';
+
+        // Pré-preenche dados do cadastro se vieram do cadastro.js
+        const emailCadastro = sessionStorage.getItem('cadastroEmail') || '';
+        const nomeCadastro = sessionStorage.getItem('cadastroNome') || '';
+
+        // ── Inicializa SDK do Mercado Pago ──────────────────────────────
+        // ⚠️ Substitua pela sua PUBLIC KEY do painel do Mercado Pago
+        // Inicializa SDK do Mercado Pago
+        const mp = new MercadoPago('SUA_PUBLIC_KEY_AQUI', { locale: 'pt-BR' });
+
+        let cardForm;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            cardForm = mp.cardForm({
+                amount: '497.00',
+                iframe: true,
+                form: {
+                    id: 'mp-card-form',
+                    cardNumber: { id: 'cardNumber', placeholder: '0000 0000 0000 0000' },
+                    expirationDate: { id: 'expirationDate', placeholder: 'MM/AA' },
+                    securityCode: { id: 'securityCode', placeholder: '123' },
+                    cardholderName: { id: 'cardholderName', placeholder: 'Como aparece no cartão' },
+                    issuer: { id: 'issuer' },
+                    installments: { id: 'installments' },
+                },
+                callbacks: {
+                    onFormMounted: err => {
+                        if (err) console.warn('CardForm mount error:', err);
+                    },
+                    onSubmit: async (event) => {
+                        event.preventDefault();
+                    },
+                }
+            });
+
+            // Máscara de CPF e CEP
+            formatarCPF(document.getElementById('cpfCartao'));
+            formatarCPF(document.getElementById('cpfPix'));
+            formatarCPF(document.getElementById('cpfBoleto'));
+            formatarCEP(document.getElementById('cepBoleto'));
+        });
+
+        // ── Abas de método de pagamento ────────────────────────────────
+        function mudarAba(metodo) {
+            document.querySelectorAll('.payment-tab').forEach((t, i) => {
+                const metodos = ['cartao', 'pix', 'boleto'];
+                t.classList.toggle('active', metodos[i] === metodo);
+            });
+            document.querySelectorAll('.payment-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById(`panel-${metodo}`).classList.add('active');
+            esconderMsg();
+        }
+
+        // ── Helpers ────────────────────────────────────────────────────
+        function mostrarMsg(texto, tipo = 'erro') {
+            const el = document.getElementById('checkoutMsg');
+            el.textContent = texto;
+            el.className = `checkout-msg ${tipo}`;
+        }
+
+        function esconderMsg() {
+            const el = document.getElementById('checkoutMsg');
+            el.className = 'checkout-msg';
+            el.textContent = '';
+        }
+
+        function setLoading(btnId, loading) {
+            const btn = document.getElementById(btnId);
+            btn.disabled = loading;
+            btn.classList.toggle('loading', loading);
+        }
+
+        function formatarCPF(input) {
+            input.addEventListener('input', () => {
+                let v = input.value.replace(/\D/g, '');
+                v = v.replace(/(\d{3})(\d)/, '$1.$2');
+                v = v.replace(/(\d{3})(\d)/, '$1.$2');
+                v = v.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+                input.value = v;
+            });
+        }
+
+        function formatarCEP(input) {
+            input.addEventListener('input', () => {
+                let v = input.value.replace(/\D/g, '');
+                v = v.replace(/(\d{5})(\d)/, '$1-$2');
+                input.value = v;
+            });
+        }
+
+        function cpfSomenteDigitos(id) {
+            return document.getElementById(id).value.replace(/\D/g, '');
+        }
+
+        function validarCPF(cpf) {
+            cpf = cpf.replace(/\D/g, '');
+            if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+            let sum = 0;
+            for (let i = 0; i < 9; i++) sum += parseInt(cpf[i]) * (10 - i);
+            let r = (sum * 10) % 11;
+            if (r === 10 || r === 11) r = 0;
+            if (r !== parseInt(cpf[9])) return false;
+            sum = 0;
+            for (let i = 0; i < 10; i++) sum += parseInt(cpf[i]) * (11 - i);
+            r = (sum * 10) % 11;
+            if (r === 10 || r === 11) r = 0;
+            return r === parseInt(cpf[10]);
+        }
+
+        // ── Pagamento com Cartão ────────────────────────────────────────
+        async function pagarCartao() {
+            esconderMsg();
+
+            const cpf = cpfSomenteDigitos('cpfCartao');
+            if (!validarCPF(cpf)) {
+                mostrarMsg('CPF inválido. Verifique e tente novamente.');
+                return;
+            }
+
+            setLoading('btnPagarCartao', true);
+
+            try {
+                // Obtém o token do cartão via SDK
+                const { token, issuerId, paymentMethodId, installments } = cardForm.getCardFormData();
+
+                if (!token) {
+                    mostrarMsg('Não foi possível processar os dados do cartão. Verifique as informações.');
+                    setLoading('btnPagarCartao', false);
+                    return;
+                }
+
+                const res = await fetch(`${CHECKOUT_API}/api/payment/cartao`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        token,
+                        issuerId,
+                        paymentMethodId,
+                        installments: parseInt(installments) || 1,
+                        payer: {
+                            email: emailCadastro,
+                            identification: { type: 'CPF', number: cpf }
+                        }
+                    })
+                });
+
+                const data = await res.json();
+
+                if (data.status === 'approved') {
+                    mostrarMsg('✅ Pagamento aprovado! Redirecionando...', 'sucesso');
+                    setTimeout(() => {
+                        window.location.href = './login.html?origem=checkout';
+                    }, 2000);
+                } else if (data.status === 'in_process') {
+                    mostrarMsg('⏳ Pagamento em análise. Você receberá um email quando for confirmado.', 'sucesso');
+                } else if (data.status === 'rejected') {
+                    const motivos = {
+                        'cc_rejected_insufficient_amount': 'Saldo insuficiente no cartão.',
+                        'cc_rejected_bad_filled_card_number': 'Número do cartão incorreto.',
+                        'cc_rejected_bad_filled_date': 'Data de validade incorreta.',
+                        'cc_rejected_bad_filled_security_code': 'CVV incorreto.',
+                        'cc_rejected_call_for_authorize': 'Cartão bloqueado. Entre em contato com seu banco.',
+                    };
+                    const msg = motivos[data.status_detail] || 'Pagamento recusado. Verifique os dados do cartão.';
+                    mostrarMsg(msg);
+                } else {
+                    mostrarMsg(data.erro || 'Erro ao processar pagamento. Tente novamente.');
+                }
+            } catch (err) {
+                console.error(err);
+                mostrarMsg('Erro de conexão. Verifique sua internet e tente novamente.');
+            }
+
+            setLoading('btnPagarCartao', false);
+        }
+
+        // ── Pagamento com PIX ───────────────────────────────────────────
+        async function gerarPix() {
+            esconderMsg();
+
+            const cpf = cpfSomenteDigitos('cpfPix');
+            if (!validarCPF(cpf)) {
+                mostrarMsg('CPF inválido. Verifique e tente novamente.');
+                return;
+            }
+
+            setLoading('btnGerarPix', true);
+
+            try {
+                const res = await fetch(`${CHECKOUT_API}/api/payment/pix`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        payer: {
+                            email: emailCadastro || prompt('Confirme seu email:'),
+                            nome: nomeCadastro,
+                            identification: { type: 'CPF', number: cpf }
+                        }
+                    })
+                });
+
+                const data = await res.json();
+
+                if (data.qr_code_base64 || data.qr_code) {
+                    // Mostra o QR Code
+                    document.getElementById('pixQrImg').src = data.qr_code_base64
+                        ? `data:image/png;base64,${data.qr_code_base64}`
+                        : data.qr_code;
+
+                    document.getElementById('pixCopiaECola').value = data.qr_code || '';
+                    document.getElementById('pixQrWrap').classList.add('visible');
+                    document.getElementById('btnGerarPix').style.display = 'none';
+                    mostrarMsg('QR Code gerado! Pague pelo app do banco e aguarde a confirmação.', 'sucesso');
+                } else {
+                    mostrarMsg(data.erro || 'Erro ao gerar PIX. Tente novamente.');
+                }
+            } catch (err) {
+                console.error(err);
+                mostrarMsg('Erro de conexão. Tente novamente.');
+            }
+
+            setLoading('btnGerarPix', false);
+        }
+
+        function copiarPix() {
+            const input = document.getElementById('pixCopiaECola');
+            input.select();
+            navigator.clipboard.writeText(input.value).then(() => {
+                const btn = document.querySelector('.pix-copy-btn');
+                btn.textContent = '✓ Copiado!';
+                setTimeout(() => btn.textContent = 'Copiar código', 2000);
+            });
+        }
+
+        // ── Boleto ─────────────────────────────────────────────────────
+        async function gerarBoleto() {
+            esconderMsg();
+
+            const cpf = cpfSomenteDigitos('cpfBoleto');
+            const cep = document.getElementById('cepBoleto').value.replace(/\D/g, '');
+
+            if (!validarCPF(cpf)) {
+                mostrarMsg('CPF inválido. Verifique e tente novamente.');
+                return;
+            }
+
+            if (cep.length !== 8) {
+                mostrarMsg('CEP inválido.');
+                return;
+            }
+
+            setLoading('btnGerarBoleto', true);
+
+            try {
+                const res = await fetch(`${CHECKOUT_API}/api/payment/boleto`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        payer: {
+                            email: emailCadastro,
+                            nome: nomeCadastro,
+                            identification: { type: 'CPF', number: cpf },
+                            address: { zip_code: cep }
+                        }
+                    })
+                });
+
+                const data = await res.json();
+
+                if (data.boleto_url || data.external_resource_url) {
+                    const url = data.boleto_url || data.external_resource_url;
+                    document.getElementById('boletoLink').href = url;
+                    document.getElementById('boletoUrl').style.display = 'block';
+                    mostrarMsg('Boleto gerado! O acesso será liberado após a compensação (1-2 dias úteis).', 'sucesso');
+                } else {
+                    mostrarMsg(data.erro || 'Erro ao gerar boleto. Tente novamente.');
+                }
+            } catch (err) {
+                console.error(err);
+                mostrarMsg('Erro de conexão. Tente novamente.');
+            }
+
+            setLoading('btnGerarBoleto', false);
+        }
+
+        // ── Init ────────────────────────────────────────────────────────
+        document.addEventListener('DOMContentLoaded', () => {
+            // Máscara de CPF e CEP
+            formatarCPF(document.getElementById('cpfCartao'));
+            formatarCPF(document.getElementById('cpfPix'));
+            formatarCPF(document.getElementById('cpfBoleto'));
+            formatarCEP(document.getElementById('cepBoleto'));
+        });
+    </script>
+</body>
+
+</html>

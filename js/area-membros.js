@@ -4,11 +4,120 @@
 // ================================================================
 
 
-// ── Auth ─────────────────────────────────────────────────────────
-// Redireciona se não estiver logado
+// ================================================================
+//  ÁREA DE MEMBROS — verificação de acesso
+//  Coloque este bloco NO TOPO do area-membros.js, antes de qualquer outra coisa
+// ================================================================
+
+// 1. Se não tem token, vai para login
 if (!api.estaLogado()) {
     window.location.href = '../pages/login.html';
 }
+
+// 2. Verifica no servidor se o admin já liberou o acesso
+// (não confia só no token — o token pode estar desatualizado)
+async function verificarAcesso() {
+    try {
+        const res = await fetch(`${API_URL}/api/modules/acesso`, {
+            headers: { 'Authorization': `Bearer ${api.getToken()}` }
+        });
+
+        if (res.status === 401) {
+            // Token expirado ou inválido
+            api.logout();
+            return;
+        }
+
+        const data = await res.json();
+
+        if (!data.pago) {
+            // Aluno cadastrado mas ainda não liberado pelo admin
+            mostrarTelaBloqueio();
+            return;
+        }
+
+        // ✅ Acesso liberado — inicializa a área de membros normalmente
+        init();
+
+    } catch (err) {
+        // Falha de rede — mostra tela de bloqueio por segurança
+        mostrarTelaBloqueio();
+    }
+}
+
+function mostrarTelaBloqueio() {
+    // Esconde o conteúdo e mostra mensagem de aguardo
+    document.querySelector('.membros-content').innerHTML = `
+        <div style="
+            text-align: center;
+            padding: 5rem 2rem;
+            max-width: 560px;
+            margin: 0 auto;
+        ">
+            <div style="font-size: 3rem; margin-bottom: 1.5rem;">⏳</div>
+            <h2 style="
+                font-family: 'Playfair Display', serif;
+                font-size: 1.8rem;
+                color: var(--navy);
+                margin-bottom: 1rem;
+            ">Aguardando confirmação</h2>
+            <p style="color: var(--gray); line-height: 1.8; margin-bottom: 2rem;">
+                Seu cadastro foi recebido com sucesso.<br>
+                Assim que seu pagamento for confirmado, o acesso será liberado em até <strong>24 horas</strong>.
+            </p>
+            <div style="
+                background: var(--off-white);
+                border: 1px solid var(--gray-light);
+                border-left: 3px solid var(--gold);
+                border-radius: 0 4px 4px 0;
+                padding: 1rem 1.4rem;
+                font-size: 0.85rem;
+                color: var(--gray);
+                text-align: left;
+                margin-bottom: 2rem;
+            ">
+                <strong style="color: var(--navy); display: block; margin-bottom: 0.3rem;">
+                    📧 Verifique seu email
+                </strong>
+                Você receberá uma confirmação quando o acesso for liberado.
+            </div>
+            <button onclick="api.logout()" style="
+                background: transparent;
+                border: 1.5px solid var(--gold);
+                color: var(--gold);
+                padding: 0.8rem 2rem;
+                border-radius: 2px;
+                cursor: pointer;
+                font-size: 0.85rem;
+                font-weight: 600;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+            ">Sair</button>
+        </div>
+    `;
+
+    // Esconde o hero de progresso também
+    const hero = document.querySelector('.membros-hero');
+    if (hero) {
+        hero.innerHTML = `
+            <p class="membros-hero-tag">Área de Membros</p>
+            <h1>Bem-vindo, ${localStorage.getItem('nome') || 'Aluno'}!</h1>
+            <p>Seu acesso está em análise.</p>
+        `;
+    }
+}
+
+// Chama a verificação assim que o DOM estiver pronto
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', verificarAcesso);
+} else {
+    verificarAcesso();
+}
+
+// ================================================================
+// O restante do seu area-membros.js vem abaixo desta linha.
+// A função init() só é chamada se o acesso estiver liberado.
+// ================================================================
 
 // Nome do aluno vem do localStorage (salvo pelo api.js no login)
 const nomeEl = document.getElementById('nomeAluno');
