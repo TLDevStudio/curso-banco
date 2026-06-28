@@ -181,60 +181,7 @@
     </div>
 
     <script src="../js/api.js"></script>
-    <script>
-        if (api.estaLogado()) {
-            window.location.href = 'area-membros.html';
-        }
-
-        async function fazerCadastro() {
-            const nome = document.getElementById('nome').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const senha = document.getElementById('senha').value;
-            const btn = document.getElementById('btnCadastro');
-            const erro = document.getElementById('erroMsg');
-            const sucesso = document.getElementById('sucessoMsg');
-
-            erro.style.display = 'none';
-            sucesso.style.display = 'none';
-
-            if (!nome || !email || !senha) {
-                erro.textContent = 'Preencha todos os campos.';
-                erro.style.display = 'block';
-                return;
-            }
-
-            if (senha.length < 6) {
-                erro.textContent = 'A senha deve ter no mínimo 6 caracteres.';
-                erro.style.display = 'block';
-                return;
-            }
-
-            btn.disabled = true;
-            btn.textContent = 'Criando conta...';
-
-            const res = await api.cadastrar(nome, email, senha);
-
-            if (res.erro) {
-                erro.textContent = res.erro;
-                erro.style.display = 'block';
-                btn.disabled = false;
-                btn.textContent = 'Criar Conta';
-                return;
-            }
-
-            api.salvarToken(res.token, res.nome);
-            sucesso.textContent = `Conta criada! Bem-vindo, ${res.nome}!`;
-            sucesso.style.display = 'block';
-
-            setTimeout(() => {
-                window.location.href = '/curso-banco/pages/area-membros.html';
-            }, 1500);
-        }
-
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Enter') fazerCadastro();
-        });
-    </script>
+    <script src="../js/cadastro.js"></script>
 </body>
 
 </html>
