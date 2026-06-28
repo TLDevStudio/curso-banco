@@ -4,8 +4,8 @@
 // ================================================================
 
 const form = document.getElementById('formCadastro');
-const btnEnviar = document.getElementById('btnEnviar');
-const erroEl = document.getElementById('erroCadastro');
+const btnEnviar = document.getElementById('btnCadastro');
+const erroEl = document.getElementById('erroMsg');
 
 // Se já está logado e pago, vai direto para área de membros
 if (api.estaLogado()) {
