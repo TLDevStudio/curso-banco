@@ -1,0 +1,334 @@
+body {
+    background: var(--off-white);
+    min-height: 100vh;
+}
+
+.admin-nav {
+    background: var(--navy);
+    padding: 1rem 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.admin-nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--white);
+}
+
+.admin-nav-logo span {
+    color: var(--gold);
+}
+
+.admin-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.admin-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(201, 168, 76, 0.1);
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+}
+
+.admin-logout {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    background: none;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.admin-logout:hover {
+    color: var(--white);
+}
+
+/* LOGIN DO ADMIN */
+.admin-login-wrap {
+    min-height: calc(100vh - 60px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.admin-login-box {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 380px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
+    border-top: 4px solid var(--gold);
+    text-align: center;
+}
+
+.admin-login-box h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--navy);
+    margin-bottom: 0.4rem;
+}
+
+.admin-login-box p {
+    font-size: 0.8rem;
+    color: var(--gray);
+    margin-bottom: 1.8rem;
+}
+
+.admin-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1.5px solid var(--gray-light);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-family: 'Inter', sans-serif;
+    color: var(--navy);
+    outline: none;
+    margin-bottom: 1rem;
+    transition: border 0.2s;
+}
+
+.admin-input:focus {
+    border-color: var(--gold);
+}
+
+.admin-btn {
+    width: 100%;
+    padding: 0.9rem;
+    background: var(--gold);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.admin-btn:hover {
+    background: var(--gold-dark);
+}
+
+.admin-erro {
+    background: #fff0f0;
+    border-left: 3px solid #ef5350;
+    padding: 0.6rem 1rem;
+    font-size: 0.78rem;
+    color: #c62828;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    display: none;
+    text-align: left;
+}
+
+/* PAINEL PRINCIPAL */
+.admin-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2.5rem 5%;
+    display: none;
+}
+
+.admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.admin-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--navy);
+}
+
+.admin-stats {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.admin-stat {
+    background: var(--white);
+    border-radius: 6px;
+    padding: 1.2rem 1.6rem;
+    border: 1px solid var(--gray-light);
+    border-top: 3px solid var(--gold);
+    min-width: 140px;
+}
+
+.admin-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--navy);
+}
+
+.admin-stat-label {
+    font-size: 0.72rem;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 0.2rem;
+}
+
+.admin-search {
+    margin-bottom: 1.5rem;
+}
+
+.admin-search input {
+    width: 100%;
+    max-width: 360px;
+    padding: 0.7rem 1rem;
+    border: 1.5px solid var(--gray-light);
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border 0.2s;
+}
+
+.admin-search input:focus {
+    border-color: var(--gold);
+}
+
+.admin-table-wrap {
+    background: var(--white);
+    border-radius: 6px;
+    border: 1px solid var(--gray-light);
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: var(--navy);
+}
+
+thead th {
+    padding: 1rem 1.2rem;
+    text-align: left;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+tbody tr {
+    border-bottom: 1px solid var(--gray-light);
+    transition: background 0.15s;
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background: #FDFBF7;
+}
+
+tbody td {
+    padding: 1rem 1.2rem;
+    font-size: 0.84rem;
+    color: var(--navy);
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.status-pago {
+    background: rgba(76, 175, 80, 0.12);
+    color: #2e7d32;
+}
+
+.status-pendente {
+    background: rgba(239, 83, 80, 0.1);
+    color: #c62828;
+}
+
+.action-btn {
+    padding: 0.35rem 0.9rem;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.2s;
+}
+
+.action-btn:hover {
+    opacity: 0.8;
+}
+
+.btn-liberar {
+    background: rgba(76, 175, 80, 0.12);
+    color: #2e7d32;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.btn-bloquear {
+    background: rgba(239, 83, 80, 0.1);
+    color: #c62828;
+    border: 1px solid rgba(239, 83, 80, 0.2);
+}
+
+.btn-remover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--gray);
+    border: 1px solid var(--gray-light);
+    margin-left: 0.3rem;
+}
+
+.admin-loading {
+    text-align: center;
+    padding: 3rem;
+    color: var(--gray);
+    font-size: 0.85rem;
+}
+
+.admin-vazio {
+    text-align: center;
+    padding: 3rem;
+    color: var(--gray);
+    font-size: 0.85rem;
+}
+
+@media (max-width: 700px) {
+
+    thead th:nth-child(3),
+    tbody td:nth-child(3) {
+        display: none;
+    }
+}
