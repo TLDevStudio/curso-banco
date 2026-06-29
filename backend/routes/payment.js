@@ -1,173 +1,79 @@
 // ================================================================
-//  routes/payment.js — Mercado Pago SDK v3 (já instalado)
-//  Rotas:
-//    POST /api/payment/cartao
-//    POST /api/payment/pix
-//    POST /api/payment/boleto
+//  routes/payment.js — Checkout Pro (Mercado Pago)
+//  Rota:
+//    POST /api/payment/preferencia  → retorna link de pagamento
+//    POST /api/payment/webhook      → libera acesso após pagamento
 // ================================================================
 
 const express = require('express');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
-const { MercadoPagoConfig, Payment } = require('mercadopago');
+const { MercadoPagoConfig, Preference, Payment } = require('mercadopago');
 
-// ── Configuração do Mercado Pago ────────────────────────────────
-// ⚠️ Adicione no seu .env:  MERCADOPAGO_ACCESS_TOKEN=APP_USR-...
 const client = new MercadoPagoConfig({
     accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN,
     options: { timeout: 5000 }
 });
+
+const preference = new Preference(client);
 const payment = new Payment(client);
 
-// ── Model de usuário (já criado no auth.js) ─────────────────────
 const User = mongoose.models.User;
 
-// ── Valor fixo do produto ───────────────────────────────────────
-const VALOR = 0.01;
+const VALOR = 1.00; // ← mude para 497.00 quando for produção
 const DESCRICAO = 'Mentoria Onda de Resultados — Acesso Vitalício';
-
-// ── Middleware de autenticação (opcional para checkout)
-// O checkout pode ser feito sem token (o aluno acabou de se cadastrar)
-// mas precisamos do email para vincular o pagamento ao usuário.
+const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 
 // ────────────────────────────────────────────────────────────────
-// POST /api/payment/cartao
+// POST /api/payment/preferencia
+// Frontend chama isso e recebe o link do MP para redirecionar
 // ────────────────────────────────────────────────────────────────
-router.post('/cartao', async (req, res) => {
+router.post('/preferencia', async (req, res) => {
     try {
-        const { token, issuerId, paymentMethodId, installments, payer } = req.body;
+        const { email, nome } = req.body;
 
-        if (!token || !payer?.email) {
-            return res.status(400).json({ erro: 'Dados incompletos.' });
+        if (!email) {
+            return res.status(400).json({ erro: 'Email obrigatório.' });
         }
 
-        const result = await payment.create({
+        const result = await preference.create({
             body: {
-                transaction_amount: VALOR,
-                token,
-                description: DESCRICAO,
-                installments: installments || 1,
-                payment_method_id: paymentMethodId,
-                issuer_id: issuerId,
-                payer: {
-                    email: payer.email,
-                    identification: payer.identification
-                }
-            },
-            requestOptions: { idempotencyKey: `cartao-${payer.email}-${Date.now()}` }
-        });
-
-        // Se aprovado, libera o aluno no banco
-        if (result.status === 'approved') {
-            await User.findOneAndUpdate(
-                { email: payer.email },
-                { pago: true },
-                { new: true }
-            );
-        }
-
-        res.json({
-            status: result.status,
-            status_detail: result.status_detail,
-            id: result.id
-        });
-
-    } catch (err) {
-        console.error('Erro cartão:', err);
-        res.status(500).json({ erro: 'Erro ao processar pagamento com cartão.' });
-    }
-});
-
-// ────────────────────────────────────────────────────────────────
-// POST /api/payment/pix
-// ────────────────────────────────────────────────────────────────
-router.post('/pix', async (req, res) => {
-    try {
-        const { payer } = req.body;
-
-        if (!payer?.email || !payer?.identification?.number) {
-            return res.status(400).json({ erro: 'Email e CPF são obrigatórios.' });
-        }
-
-        const result = await payment.create({
-            body: {
-                transaction_amount: VALOR,
-                description: DESCRICAO,
-                payment_method_id: 'pix',
-                payer: {
-                    email: payer.email,
-                    first_name: payer.nome || '',
-                    identification: payer.identification
-                }
-            },
-            requestOptions: { idempotencyKey: `pix-${payer.email}-${Date.now()}` }
-        });
-
-        const pixData = result.point_of_interaction?.transaction_data;
-
-        res.json({
-            id: result.id,
-            status: result.status,
-            qr_code: pixData?.qr_code,
-            qr_code_base64: pixData?.qr_code_base64
-        });
-
-    } catch (err) {
-        console.error('Erro PIX:', err);
-        res.status(500).json({ erro: 'Erro ao gerar PIX.' });
-    }
-});
-
-// ────────────────────────────────────────────────────────────────
-// POST /api/payment/boleto
-// ────────────────────────────────────────────────────────────────
-router.post('/boleto', async (req, res) => {
-    try {
-        const { payer } = req.body;
-
-        if (!payer?.email || !payer?.identification?.number) {
-            return res.status(400).json({ erro: 'Email e CPF são obrigatórios.' });
-        }
-
-        const result = await payment.create({
-            body: {
-                transaction_amount: VALOR,
-                description: DESCRICAO,
-                payment_method_id: 'bolbradesco', // ou 'pec' para Lotérica
-                payer: {
-                    email: payer.email,
-                    first_name: payer.nome || '',
-                    identification: payer.identification,
-                    address: {
-                        zip_code: payer.address?.zip_code || '01310100',
-                        street_name: payer.address?.street || '',
-                        street_number: payer.address?.number || '',
-                        neighborhood: payer.address?.neighborhood || '',
-                        city: payer.address?.city || '',
-                        federal_unit: payer.address?.state || 'SP'
+                items: [
+                    {
+                        title: DESCRICAO,
+                        quantity: 1,
+                        currency_id: 'BRL',
+                        unit_price: VALOR
                     }
-                }
-            },
-            requestOptions: { idempotencyKey: `boleto-${payer.email}-${Date.now()}` }
+                ],
+                payer: {
+                    email,
+                    name: nome || ''
+                },
+                back_urls: {
+                    success: `${BASE_URL}/pages/login.html?origem=checkout&status=aprovado`,
+                    failure: `${BASE_URL}/pages/checkout.html?status=erro`,
+                    pending: `${BASE_URL}/pages/login.html?origem=checkout&status=pendente`
+                },
+                auto_return: 'approved',
+                notification_url: `${process.env.API_URL}/api/payment/webhook`,
+                metadata: { email }
+            }
         });
 
         res.json({
-            id: result.id,
-            status: result.status,
-            boleto_url: result.transaction_details?.external_resource_url
+            link: result.init_point,           // link de produção
+            link_sandbox: result.sandbox_init_point  // link de teste
         });
 
     } catch (err) {
-        console.error('Erro boleto:', err);
-        res.status(500).json({ erro: 'Erro ao gerar boleto.' });
+        console.error('Erro preferência:', err);
+        res.status(500).json({ erro: 'Erro ao criar preferência de pagamento.' });
     }
 });
 
 // ────────────────────────────────────────────────────────────────
 // POST /api/payment/webhook
-// Mercado Pago notifica aqui quando o status muda (PIX/Boleto)
-// Configure a URL no painel do MP: https://seu-app.onrender.com/api/payment/webhook
 // ────────────────────────────────────────────────────────────────
 router.post('/webhook', async (req, res) => {
     try {
@@ -177,13 +83,13 @@ router.post('/webhook', async (req, res) => {
             const info = await payment.get({ id: data.id });
 
             if (info.status === 'approved') {
-                const email = info.payer?.email;
+                const email = info.payer?.email || info.metadata?.email;
                 if (email) {
                     await User.findOneAndUpdate(
                         { email },
                         { pago: true }
                     );
-                    console.log(`✅ Pagamento aprovado via webhook: ${email}`);
+                    console.log(`✅ Pagamento aprovado: ${email}`);
                 }
             }
         }
