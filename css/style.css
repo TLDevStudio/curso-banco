@@ -43,7 +43,21 @@ nav {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    height: 68px;
+    height: 100px;
+}
+
+/* nav com a logo imagem se eu quiser trocar */
+.nav-logo-img {
+    grid-column: 2;
+    justify-self: center;
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo-img img {
+    height: 100px;
+    width: auto;
+    display: block;
 }
 
 /* NAV LOGO — ONDA DO MAR */
@@ -1257,7 +1271,8 @@ footer {
     }
 
     .nav {
-        grid-template-columns: 1fr auto;
+        height: 64px;
+        grid-template-columns: 44px 1fr 44px;
     }
 
     .nav-logo {
@@ -1265,6 +1280,14 @@ footer {
         justify-self: start;
         font-size: 1.1rem;
         padding: 0.3rem 1rem 0.4rem;
+    }
+    /* para teste da logo nova no mobile */
+    .nav-logo-img img {
+        height: 48px;
+    }
+
+    .hero {
+        padding-top: 64px;
     }
 
     .nav-links {
