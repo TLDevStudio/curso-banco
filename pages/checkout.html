@@ -604,7 +604,7 @@
                     <div class="field-group">
                         <label for="installments">Parcelamento</label>
                         <select id="installments">
-                            <option value="1">1x de R$ 497,00 (sem juros)</option>
+                            <option value="1">1x de R$ 0.01 (sem juros)</option>
                             <option value="2">2x de R$ 248,50 (sem juros)</option>
                             <option value="3">3x de R$ 165,67 (sem juros)</option>
                             <option value="6">6x de R$ 82,83 (sem juros)</option>
@@ -620,7 +620,7 @@
 
                     <button class="btn-pagar" id="btnPagarCartao" onclick="pagarCartao()">
                         <div class="spinner"></div>
-                        <span class="btn-label">🔒 Pagar R$ 497,00</span>
+                        <span class="btn-label">🔒 Pagar R$ 0.01</span>
                     </button>
                 </div>
 
@@ -655,7 +655,7 @@
 
                     <button class="btn-pagar" id="btnGerarPix" onclick="gerarPix()">
                         <div class="spinner"></div>
-                        <span class="btn-label">⚡ Gerar QR Code PIX · R$ 497,00</span>
+                        <span class="btn-label">⚡ Gerar QR Code PIX · R$ 0.01</span>
                     </button>
                 </div>
 
@@ -680,7 +680,7 @@
 
                     <button class="btn-pagar" id="btnGerarBoleto" onclick="gerarBoleto()">
                         <div class="spinner"></div>
-                        <span class="btn-label">📄 Gerar Boleto · R$ 497,00</span>
+                        <span class="btn-label">📄 Gerar Boleto · R$ 0.01</span>
                     </button>
 
                     <div id="boletoUrl" style="display:none; margin-top:1rem; text-align:center;">
@@ -706,7 +706,7 @@
 
             <div class="summary-price-box">
                 <div class="summary-price-label">Investimento único</div>
-                <div class="summary-price-value">R$ 497</div>
+                <div class="summary-price-value">R$ 0,01</div>
                 <div class="summary-price-period">/ acesso vitalício</div>
 
                 <div class="summary-includes">
@@ -772,13 +772,13 @@
         // ── Inicializa SDK do Mercado Pago ──────────────────────────────
         // ⚠️ Substitua pela sua PUBLIC KEY do painel do Mercado Pago
         // Inicializa SDK do Mercado Pago
-        const mp = new MercadoPago('SUA_PUBLIC_KEY_AQUI', { locale: 'pt-BR' });
+        const mp = new MercadoPago('TEST-a985c19e-1ebf-4161-bd5b-433654e2cf9b', { locale: 'pt-BR' });
 
         let cardForm;
 
         document.addEventListener('DOMContentLoaded', () => {
             cardForm = mp.cardForm({
-                amount: '497.00',
+                amount: '0.01',
                 iframe: true,
                 form: {
                     id: 'mp-card-form',

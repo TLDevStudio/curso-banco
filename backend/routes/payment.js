@@ -24,7 +24,7 @@ const payment = new Payment(client);
 const User = mongoose.models.User;
 
 // ── Valor fixo do produto ───────────────────────────────────────
-const VALOR = 497.00;
+const VALOR = 0.01;
 const DESCRICAO = 'Mentoria Onda de Resultados — Acesso Vitalício';
 
 // ── Middleware de autenticação (opcional para checkout)
