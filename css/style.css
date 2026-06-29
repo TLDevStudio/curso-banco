@@ -691,36 +691,37 @@ section {
 }
 
 .learn-card {
-    background: var(--white);
-    border-radius: 2px;
-    padding: 1.8rem;
-    border: 1px solid var(--gray-light);
+    background: linear-gradient(135deg, rgba(201, 168, 76, 0.08) 0%, rgba(201, 168, 76, 0.15) 100%);
+    border-radius: 16px;
+    padding: 2rem;
+    border: 1px solid rgba(201, 168, 76, 0.35);
     border-top: 3px solid var(--gold);
     transition: box-shadow 0.2s, transform 0.2s;
 }
 
 .learn-card:hover {
-    box-shadow: 0 8px 32px rgba(201, 168, 76, 0.12);
+    box-shadow: 0 8px 32px rgba(201, 168, 76, 0.2);
     transform: translateY(-2px);
 }
 
 .learn-icon {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+    font-size: 2.2rem;
+    margin-bottom: 1.2rem;
 }
 
 .learn-card h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 1.15rem;
+    font-weight: 700;
     color: var(--navy);
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.7rem;
 }
 
 .learn-card p {
-    font-size: 0.83rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 0.9rem;
     color: var(--gray);
-    line-height: 1.7;
+    line-height: 1.8;
 }
 
 /* VIDEO DEMOS */
