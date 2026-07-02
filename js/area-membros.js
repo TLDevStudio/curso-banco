@@ -228,7 +228,7 @@ const MODULOS = {
     mod2: {
         titulo: 'Módulo 2 · Crédito Pessoal e Consignado',
         aulas: [
-            { titulo: 'Crédito pessoal vs consignado — quando indicar cada um', desc: 'Perfil de cliente e produto certo na hora certa', duracao: '16 min', totalSeconds: 960, type: 'youtube', src: 'COLOQUE_O_ID_AQUI' },
+            { titulo: 'Abordagem 1 - O gancho da Curiosidade', desc: 'Tem como objetivo Despertar o interesse do cliente antes de apresentar a Capitalização (PIC). \nO objetivo é fazer com que o cliente queira ouvir, e não apenas ouvir porque o gerente pediu.', duracao: '16 min', totalSeconds: 960, type: 'youtube', src: 'COLOQUE_O_ID_AQUI' },
             { titulo: 'Como fazer o diagnóstico financeiro do cliente', desc: 'Perguntas que revelam a real necessidade de crédito', duracao: '18 min', totalSeconds: 1080, type: 'youtube', src: 'COLOQUE_O_ID_AQUI' },
             { titulo: 'Simulação que convence: apresentando parcelas e CET', desc: 'Como mostrar custo total sem assustar o cliente', duracao: '20 min', totalSeconds: 1200, type: 'youtube', src: 'COLOQUE_O_ID_AQUI' },
             { titulo: 'Objeções de crédito e como contorná-las', desc: 'Respostas para "tá caro", "vou pensar" e "não preciso"', duracao: '22 min', totalSeconds: 1320, type: 'youtube', src: 'COLOQUE_O_ID_AQUI' },

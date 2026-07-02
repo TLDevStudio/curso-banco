@@ -708,6 +708,13 @@
 
                 const data = await res.json();
 
+                /* if (data.link) {
+                    window.location.href = data.link;
+                } else {
+                    mostrarMsg(data.erro || 'Erro ao iniciar pagamento. Tente novamente.');
+                    setLoading(false);
+                } */ /* ===== somente quando eu colocar o token de produção real ===== */
+
                 if (data.link_sandbox) {
                     // Em teste usa sandbox, em produção usa link
                     window.location.href = data.link_sandbox;
