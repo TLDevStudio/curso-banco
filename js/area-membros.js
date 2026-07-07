@@ -230,48 +230,48 @@ const MODULOS = {
         aulas: [
             {
                 titulo: 'Introdução',
-                desc: 'Introdução Para os Vídeos Deste Capítulo',
-                duracao: '2:12 min',
-                totalSeconds: 132,
+                desc: 'O que você vai dominar e aprender neste capítulo',
+                duracao: '00:49 seg',
+                totalSeconds: 49,
                 type: 'mp4',
-                src: '/videos/aula01.mp4',
-                pdf: '#'
+                src: '/videos/mod2/aula-intro.mp4',
+                
             },
             {
                 titulo: 'Abordagem 1: O Gancho da Curiosidade',
                 desc: 'Despertar o interesse do cliente antes de apresentar a Capitalização (PIC).<br> O objetivo é fazer com que o cliente queira ouvir, e não apenas ouvir porque o gerente pediu.',
                 duracao: '18 min',
                 totalSeconds: 1080,
-                type: 'youtube',
+                type: 'mp4',
                 src: 'COLOQUE_O_ID_AQUI',
                 pdf: '/pdf/mod2/aula01.pdf'
             },
             {
-                titulo: 'Simulação que convence: apresentando parcelas e CET',
-                desc: 'Como mostrar custo total sem assustar o cliente',
+                titulo: 'Abordagem 2: O Gancho do Objetivo',
+                desc: 'Conectar a solução aos sonhos e metas do cliente',
                 duracao: '20 min',
                 totalSeconds: 1200,
-                type: 'youtube',
+                type: 'mp4',
                 src: 'COLOQUE_O_ID_AQUI',
-                pdf: '/pdfs/mod2/aula03.pdf'
+                pdf: '/pdf/mod2/aula02.pdf'
             },
             {
-                titulo: 'Objeções de crédito e como contorná-las',
-                desc: 'Respostas para "tá caro", "vou pensar" e "não preciso"',
+                titulo: 'Abordagem 3: O Gancho da Dificuldade',
+                desc: 'Demonstrar empatia e identificar uma necessidade real',
                 duracao: '22 min',
                 totalSeconds: 1320,
-                type: 'youtube',
+                type: 'mp4',
                 src: 'COLOQUE_O_ID_AQUI',
-                pdf: '/pdfs/mod2/aula04.pdf'
+                pdf: '/pdf/mod2/aula03.pdf'
             },
             {
-                titulo: 'Refinanciamento e portabilidade como alavanca de venda',
-                desc: 'Como usar a portabilidade para trazer clientes de outros bancos',
+                titulo: 'Abordagem 4: O Gancho da Experiência',
+                desc: 'Utilizar experiências reais e prova social para gerar credibilidade.',
                 duracao: '14 min',
                 totalSeconds: 840,
                 type: 'youtube',
                 src: 'COLOQUE_O_ID_AQUI',
-                pdf: '/pdfs/mod2/aula05.pdf'
+                pdf: '/pdf/mod2/aula04.pdf'
             },
             {
                 titulo: 'Fechamento e documentação de crédito',
