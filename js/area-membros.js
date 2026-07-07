@@ -226,14 +226,62 @@ const MODULOS = {
         ]
     },
     mod2: {
-        titulo: 'Módulo 2 · Crédito Pessoal e Consignado',
+        titulo: 'Módulo 2 · As Primeiras Abordagens de Alta Performance',
         aulas: [
-            { titulo: 'Abordagem 1 - O gancho da Curiosidade', desc: 'Tem como objetivo Despertar o interesse do cliente antes de apresentar a Capitalização (PIC). \nO objetivo é fazer com que o cliente queira ouvir, e não apenas ouvir porque o gerente pediu.', duracao: '16 min', totalSeconds: 960, type: 'youtube', src: 'COLOQUE_O_ID_AQUI' },
-            { titulo: 'Como fazer o diagnóstico financeiro do cliente', desc: 'Perguntas que revelam a real necessidade de crédito', duracao: '18 min', totalSeconds: 1080, type: 'youtube', src: 'COLOQUE_O_ID_AQUI' },
-            { titulo: 'Simulação que convence: apresentando parcelas e CET', desc: 'Como mostrar custo total sem assustar o cliente', duracao: '20 min', totalSeconds: 1200, type: 'youtube', src: 'COLOQUE_O_ID_AQUI' },
-            { titulo: 'Objeções de crédito e como contorná-las', desc: 'Respostas para "tá caro", "vou pensar" e "não preciso"', duracao: '22 min', totalSeconds: 1320, type: 'youtube', src: 'COLOQUE_O_ID_AQUI' },
-            { titulo: 'Refinanciamento e portabilidade como alavanca de venda', desc: 'Como usar a portabilidade para trazer clientes de outros bancos', duracao: '14 min', totalSeconds: 840, type: 'youtube', src: 'COLOQUE_O_ID_AQUI' },
-            { titulo: 'Fechamento e documentação de crédito', desc: 'Do aceite à formalização sem perder o cliente no caminho', duracao: '20 min', totalSeconds: 1200, type: 'youtube', src: 'COLOQUE_O_ID_AQUI' }
+            {
+                titulo: 'Introdução',
+                desc: 'Introdução Para os Vídeos Deste Capítulo',
+                duracao: '2:12 min',
+                totalSeconds: 132,
+                type: 'mp4',
+                src: '/videos/aula01.mp4',
+                pdf: '#'
+            },
+            {
+                titulo: 'Abordagem 1: O Gancho da Curiosidade',
+                desc: 'Despertar o interesse do cliente antes de apresentar a Capitalização (PIC).<br> O objetivo é fazer com que o cliente queira ouvir, e não apenas ouvir porque o gerente pediu.',
+                duracao: '18 min',
+                totalSeconds: 1080,
+                type: 'youtube',
+                src: 'COLOQUE_O_ID_AQUI',
+                pdf: '/pdf/mod2/aula01.pdf'
+            },
+            {
+                titulo: 'Simulação que convence: apresentando parcelas e CET',
+                desc: 'Como mostrar custo total sem assustar o cliente',
+                duracao: '20 min',
+                totalSeconds: 1200,
+                type: 'youtube',
+                src: 'COLOQUE_O_ID_AQUI',
+                pdf: '/pdfs/mod2/aula03.pdf'
+            },
+            {
+                titulo: 'Objeções de crédito e como contorná-las',
+                desc: 'Respostas para "tá caro", "vou pensar" e "não preciso"',
+                duracao: '22 min',
+                totalSeconds: 1320,
+                type: 'youtube',
+                src: 'COLOQUE_O_ID_AQUI',
+                pdf: '/pdfs/mod2/aula04.pdf'
+            },
+            {
+                titulo: 'Refinanciamento e portabilidade como alavanca de venda',
+                desc: 'Como usar a portabilidade para trazer clientes de outros bancos',
+                duracao: '14 min',
+                totalSeconds: 840,
+                type: 'youtube',
+                src: 'COLOQUE_O_ID_AQUI',
+                pdf: '/pdfs/mod2/aula05.pdf'
+            },
+            {
+                titulo: 'Fechamento e documentação de crédito',
+                desc: 'Do aceite à formalização sem perder o cliente no caminho',
+                duracao: '20 min',
+                totalSeconds: 1200,
+                type: 'youtube',
+                src: 'COLOQUE_O_ID_AQUI',
+                pdf: '/pdfs/mod2/aula06.pdf'
+            }
         ]
     },
     mod3: {
@@ -571,6 +619,14 @@ async function injetarListaAulas(moduloId, containerId) {
                 <div class="lesson-bar-wrap">
                     <div class="lesson-bar" id="barra-${moduloId}-${i}" style="width:${pct}%;background:${cor};"></div>
                 </div>
+                ${aula.pdf ? `
+                <a href="${aula.pdf}" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="
+                    display:inline-flex;align-items:center;gap:6px;
+                    margin-top:8px;font-size:12px;font-weight:500;
+                    color:#C9A84C;text-decoration:none;
+                ">
+                    📄 Material em PDF desta aula
+                </a>` : ''}
             </div>
             <span class="lesson-duration">${aula.duracao}</span>
         </div>`;
