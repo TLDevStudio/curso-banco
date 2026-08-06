@@ -239,7 +239,6 @@ function abrirPlayer(moduloId, aulaIndex) {
     document.body.style.overflow = 'hidden';
 }
 
-// Fecha o player e para o tracking
 function fecharPlayer() {
     pararTracking();
     document.getElementById('playerOverlay').classList.remove('active');
@@ -248,7 +247,6 @@ function fecharPlayer() {
     atualizarUIModulo(playerState.moduloId);
 }
 
-// Navega entre aulas sem fechar o modal
 function navegarAula(dir) {
     const modulo = MODULOS[playerState.moduloId];
     const proximo = playerState.aulaIndex + dir;
@@ -258,7 +256,6 @@ function navegarAula(dir) {
     renderizarPlayer();
 }
 
-// Renderiza o conteúdo atual no modal
 function renderizarPlayer() {
     const { moduloId, aulaIndex } = playerState;
     const modulo = MODULOS[moduloId];
@@ -266,25 +263,21 @@ function renderizarPlayer() {
     const total = modulo.aulas.length;
     const prog = progressManager.getAula(moduloId, aulaIndex);
 
-    // Cabeçalho
     document.getElementById('playerBreadcrumb').textContent = modulo.titulo;
     document.getElementById('playerTitulo').textContent = aula.titulo;
     document.getElementById('playerProgresso').textContent =
         `Aula ${aulaIndex + 1} de ${total}`;
 
-    // Botões de navegação
     const btnAnt = document.getElementById('playerBtnAnterior');
     const btnProx = document.getElementById('playerBtnProxima');
     btnAnt.disabled = aulaIndex === 0;
     btnAnt.style.opacity = aulaIndex === 0 ? '0.35' : '1';
     btnProx.textContent = aulaIndex === total - 1 ? '✓ Concluir módulo' : 'Próxima →';
 
-    // Vídeo
     const vc = document.getElementById('playerVideoContainer');
     playerState.videoEl = null;
 
     if (aula.type === 'youtube') {
-        // YouTube: tracking via ping periódico (não acessa currentTime)
         vc.innerHTML = `<iframe
             id="playerIframe"
             src="https://www.youtube.com/embed/${aula.src}?autoplay=1&rel=0&modestbranding=1"
@@ -295,7 +288,6 @@ function renderizarPlayer() {
         iniciarTrackingYoutube(moduloId, aulaIndex, aula.totalSeconds);
 
     } else if (aula.type === 'mp4') {
-        // MP4: tracking preciso via events do <video>
         const startAt = prog.lastPosition || 0;
         vc.innerHTML = `<video
             id="playerVideo"
