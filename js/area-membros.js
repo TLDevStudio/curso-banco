@@ -1,14 +1,3 @@
-// ================================================================
-//  ÁREA DE MEMBROS — script.js
-//  Backend: MongoDB + Render (curso-banco-api.onrender.com)
-// ================================================================
-
-
-// ================================================================
-//  ÁREA DE MEMBROS — verificação de acesso
-//  Coloque este bloco NO TOPO do area-membros.js, antes de qualquer outra coisa
-// ================================================================
-
 // 1. Se não tem token, vai para login
 if (!api.estaLogado()) {
     window.location.href = '../pages/login.html';
@@ -114,10 +103,9 @@ if (document.readyState === 'loading') {
     verificarAcesso();
 }
 
-// ================================================================
-// O restante do seu area-membros.js vem abaixo desta linha.
+// O restante do area-membros.js vem abaixo desta linha.
 // A função init() só é chamada se o acesso estiver liberado.
-// ================================================================
+
 
 // Nome do aluno vem do localStorage (salvo pelo api.js no login)
 const nomeEl = document.getElementById('nomeAluno');
@@ -206,11 +194,8 @@ const progressStorage = {
     }
 };
 
-
-// ================================================================
 // CATÁLOGO DE MÓDULOS E AULAS
 // Troque os src pelos IDs reais do YouTube ou URLs de vídeo MP4.
-// ================================================================
 const MODULOS = {
     mod1: {
         titulo: 'Módulo 1 · Consórcio — Do Básico ao Fechamento',
@@ -331,9 +316,8 @@ const MODULOS = {
 const MODULO_IDS = Object.keys(MODULOS);
 
 
-// ================================================================
 // PROGRESS MANAGER — lógica pura, async porque o storage é async
-// ================================================================
+
 const progressManager = {
 
     _cache: {}, // evita chamadas repetidas ao backend na mesma sessão
@@ -414,10 +398,7 @@ const progressManager = {
     }
 };
 
-
-// ================================================================
 // PLAYER MODAL
-// ================================================================
 let playerState = { moduloId: null, aulaIndex: 0, trackInterval: null };
 
 function abrirPlayer(moduloId, aulaIndex) {
@@ -581,10 +562,7 @@ document.addEventListener('keydown', e => {
     if (e.key === 'ArrowLeft') navegarAula(-1);
 });
 
-
-// ================================================================
 // UI DOS MÓDULOS
-// ================================================================
 function fmt(s) {
     const v = Math.max(0, Math.floor(s));
     return `${Math.floor(v / 60)}:${String(v % 60).padStart(2, '0')}`;
@@ -699,10 +677,7 @@ function atualizarEstatisticasGerais() {
     document.getElementById('barraGeral').style.width = pct + '%';
 }
 
-
-// ================================================================
 // TOGGLE DE MÓDULO
-// ================================================================
 function toggleModule(id) {
     const body = document.getElementById(id + '-body');
     const el = document.getElementById(id);
@@ -712,10 +687,7 @@ function toggleModule(id) {
     el.classList.toggle('open', !estaAberto);
 }
 
-
-// ================================================================
 // INICIALIZAÇÃO
-// ================================================================
 async function init() {
     criarModalPlayer();
 

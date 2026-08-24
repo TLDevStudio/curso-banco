@@ -1,7 +1,5 @@
-// ================================================================
 //  CADASTRO.JS — frontend
 //  Fluxo: cadastro → checkout (NÃO área de membros)
-// ================================================================
 
 const form = document.getElementById('formCadastro');
 const btnEnviar = document.getElementById('btnCadastro');
@@ -54,7 +52,7 @@ form?.addEventListener('submit', async (e) => {
             return;
         }
 
-        // ✅ Cadastro OK — guarda o email para pré-preencher no checkout
+        // Cadastro OK — guarda o email para pré-preencher no checkout
         // NÃO salva token nem redireciona para área de membros
         sessionStorage.setItem('cadastroEmail', email);
         sessionStorage.setItem('cadastroNome', nome);

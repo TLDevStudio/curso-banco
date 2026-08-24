@@ -11,6 +11,7 @@
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="../css/area-membros.css">
+    <link rel="stylesheet" href="../css/style.css">
     <style>
 
     </style>
@@ -20,8 +21,10 @@
 
     <!-- NAV -->
     <nav class="membros-nav">
-        <div class="membros-nav-logo">
-            <span class="membros-nav-logo-text">Onda de </span><span>Resultados</span>
+        <div class="nav-spacer"></div>
+        <div class="nav-logo" id="navLogo">
+            <canvas class="nav-logo-canvas" id="navLogoCanvas" aria-hidden="true"></canvas>
+            <span class="nav-logo-text">Onda de </span><span>Resultados</span>
         </div>
         <div class="membros-nav-right">
             <span class="membros-nome">Olá, <strong id="nomeAluno">Aluno</strong></span>
@@ -167,7 +170,8 @@
                     <div class="objection-item">
                         <div class="objection-q">Para Finalizar</div>
                         <div class="objection-a">Antes de apresentar qualquer produto, procure despertar curiosidade,
-                            compreender o momento do cliente e conectar a solução ao que realmente faz sentido para ele.<br>
+                            compreender o momento do cliente e conectar a solução ao que realmente faz sentido para
+                            ele.<br>
                             É essa postura consultiva que diferencia um simples vendedor de um gerente de alta
                             performance.</div>
                     </div>
@@ -277,8 +281,11 @@
         <p>© 2026 · Mentoria de vendas bancárias de alto desempenho</p>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
     <script src="../js/api.js"></script>
     <script src="../js/area-membros.js"></script>
+    <script src="../js/ondas.js"></script>
 
 </body>
 

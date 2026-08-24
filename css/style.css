@@ -68,49 +68,47 @@ nav {
     font-size: 1.45rem;
     font-weight: 900;
     letter-spacing: 0.02em;
-    color: var(--white);
+    color: var(--navy);
     padding: 0.45rem 1.6rem 0.65rem;
     border-radius: 6px;
     position: relative;
     overflow: hidden;
-    background: #0a4a7c;
+    background: var(--off-white);
+    border: 1px solid rgba(201, 168, 76, 0.35);
     text-decoration: none;
     line-height: 1.2;
     display: inline-block;
 }
 
-.nav-logo::before {
-    content: '';
+.nav-logo-canvas {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, #1a6fa8 0%, #1a8fbf 35%, #0d6e9e 60%, #0a4a7c 100%);
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
     z-index: 0;
-}
-
-.nav-logo::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    z-index: 1;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 70' preserveAspectRatio='none'%3E%3Cpath d='M0,42 C30,28 60,52 90,40 C120,28 150,48 180,36 C210,24 240,46 270,34 C300,22 330,44 360,32 C380,24 392,30 400,28 L400,70 L0,70 Z' fill='rgba(255,255,255,0.18)'/%3E%3Cpath d='M0,52 C25,40 55,58 85,48 C115,38 145,56 175,46 C205,36 235,54 265,44 C295,34 325,52 355,44 C375,38 390,46 400,44 L400,70 L0,70 Z' fill='rgba(255,255,255,0.28)'/%3E%3Cpath d='M0,60 C20,54 45,64 70,59 C95,54 120,62 145,57 C170,52 195,62 220,58 C245,54 270,63 295,59 C320,55 350,63 375,60 C385,58 393,61 400,60 L400,70 L0,70 Z' fill='rgba(255,255,255,0.42)'/%3E%3C/svg%3E");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    pointer-events: none;
 }
 
 .nav-logo-text {
     position: relative;
     z-index: 2;
-    color: var(--white);
+    color: var(--navy);
 }
 
 .nav-logo span {
     position: relative;
     z-index: 2;
-    color: var(--white);
+    color: var(--navy);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .nav-logo-canvas {
+        display: none;
+    }
+
+    .nav-logo {
+        background: linear-gradient(160deg, var(--off-white) 0%, var(--gold-light) 60%, var(--gold) 130%);
+    }
 }
 
 .nav-links {
@@ -1281,6 +1279,7 @@ footer {
         font-size: 1.1rem;
         padding: 0.3rem 1rem 0.4rem;
     }
+
     /* para teste da logo nova no mobile */
     .nav-logo-img img {
         height: 48px;
@@ -1386,4 +1385,42 @@ footer {
 .lesson[role="button"]:focus-visible {
     outline: 2px solid var(--gold);
     outline-offset: -2px;
+}
+
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-inner {
+    position: relative;
+    z-index: 2;
+}
+
+.wave-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.wave-bg canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+@media (max-width: 900px) {
+    .wave-bg {
+        opacity: 0.22;
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 18%, black 55%);
+        mask-image: linear-gradient(to bottom, transparent 0%, transparent 18%, black 55%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wave-bg {
+        display: none;
+    }
 }

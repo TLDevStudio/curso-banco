@@ -1,7 +1,3 @@
-// ================================================================
-// API.JS — comunicação com o backend
-// ================================================================
-
 const API_URL = 'https://curso-banco-api.onrender.com';
 
 const api = {

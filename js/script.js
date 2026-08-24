@@ -5,8 +5,11 @@
 //    2. progressManager   → lógica de progresso (não muda com o backend)
 //    3. Player modal      → abre vídeo, rastreia tempo, atualiza progresso
 //    4. UI dos módulos    → anel, barras, checks, lista de aulas
-//    5. Mercado ao vivo   → crypto + câmbio
-//    6. Utilitários       → nav, reveal, contadores
+//    5. Vídeos demo
+//    6. Mercado ao vivo   → crypto + câmbio
+//    7. Onda 3D (Three.js) → efeito visual do hero
+//    8. Utilitários       → nav, reveal, contadores
+//    9. Inicialização
 // ================================================================
 
 
@@ -736,7 +739,139 @@ setInterval(fetchMarket, 60000);
 
 
 // ================================================================
-// 8. UTILITÁRIOS — nav, reveal, contadores
+// 8. ONDA 3D (Three.js) — efeito visual do hero
+// ================================================================
+//
+// Ideia: uma malha (grid) de pontos que ondula como um mar de dados
+// financeiros, com cor variando entre o navy e o dourado da marca
+// conforme a altura da onda — literalmente "Onda de Resultados".
+//
+// Requer o script do Three.js carregado ANTES deste arquivo
+// (veja o <script> do cdnjs no index.html).
+
+function initWaveBackground() {
+    const container = document.getElementById('wave-bg');
+    if (!container || typeof THREE === 'undefined') return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let width = container.clientWidth;
+    let height = container.clientHeight;
+    if (!width || !height) return;
+
+    // --- cena, câmera, renderer ---
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 1000);
+    // em telas estreitas (mobile), afasta a câmera pra onda não ficar
+    // cortada/zoom demais no formato retrato
+    const isNarrow = width / height < 0.9;
+    camera.position.set(0, isNarrow ? 20 : 14, isNarrow ? 30 : 22);
+    camera.lookAt(0, -3, -2);
+
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(width, height);
+    container.appendChild(renderer.domElement);
+
+    // --- geometria da "onda" (grid que vai flexionar) ---
+    // grid mais espaçado (menos linhas) = visual mais calmo e legível
+    const WIDTH = 46, DEPTH = 46, SEG = 26;
+    const geometry = new THREE.PlaneGeometry(WIDTH, DEPTH, SEG, SEG);
+    geometry.rotateX(-Math.PI / 2.15); // deita o plano, com leve inclinação
+
+    const posAttr = geometry.attributes.position;
+    const base = Float32Array.from(posAttr.array); // guarda posição original (x, z fixos)
+
+    // cor por vértice: navy → dourado → um toque de creme no topo da onda
+    const colorAttr = new THREE.BufferAttribute(new Float32Array(posAttr.count * 3), 3);
+    geometry.setAttribute('color', colorAttr);
+
+    const navy = new THREE.Color('#1A1A2E');
+    const gold = new THREE.Color('#C9A84C');
+    const cream = new THREE.Color('#F4EFE3');
+
+    // superfície translúcida (dá volume/profundidade) — bem discreta
+    const surfaceMat = new THREE.MeshBasicMaterial({
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.05,
+        side: THREE.DoubleSide,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false
+    });
+    const surface = new THREE.Mesh(geometry, surfaceMat);
+    scene.add(surface);
+
+    // wireframe dourado por cima (o "traço" que lembra gráfico/dado financeiro)
+    const wireMat = new THREE.MeshBasicMaterial({
+        color: 0xC9A84C,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.22,
+        depthWrite: false
+    });
+    const wire = new THREE.Mesh(geometry, wireMat);
+    scene.add(wire);
+
+    // --- animação da onda ---
+    let t = 0;
+    let rafId = null;
+
+    function animate() {
+        t += 0.005;
+        const pos = posAttr.array;
+        const col = colorAttr.array;
+
+        for (let i = 0; i < posAttr.count; i++) {
+            const ix = i * 3;
+            const x = base[ix];
+            const z = base[ix + 2];
+
+            // soma de senos em frequências diferentes = onda mais orgânica
+            const wave = Math.sin(x * 0.16 + t * 1.3) * 0.75
+                + Math.sin(z * 0.22 + t * 0.9) * 0.55
+                + Math.sin((x + z) * 0.09 + t * 0.5) * 0.4;
+
+            pos[ix + 1] = base[ix + 1] + wave;
+
+            // cor mais dourada nos "picos" da onda
+            const mix = THREE.MathUtils.clamp((wave + 2.2) / 4.4, 0, 1);
+            const c = navy.clone().lerp(gold, mix).lerp(cream, mix * 0.25);
+            col[ix] = c.r; col[ix + 1] = c.g; col[ix + 2] = c.b;
+        }
+
+        posAttr.needsUpdate = true;
+        colorAttr.needsUpdate = true;
+
+        renderer.render(scene, camera);
+        rafId = requestAnimationFrame(animate);
+    }
+    animate();
+
+    // --- responsivo ---
+    function onResize() {
+        width = container.clientWidth;
+        height = container.clientHeight;
+        if (!width || !height) return;
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height);
+    }
+    window.addEventListener('resize', onResize);
+
+    // pausa quando a aba não está visível (economiza bateria/CPU)
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            if (rafId) cancelAnimationFrame(rafId);
+            rafId = null;
+        } else if (!rafId) {
+            animate();
+        }
+    });
+}
+
+
+// ================================================================
+// 9. UTILITÁRIOS — nav, reveal, contadores
 // ================================================================
 
 function toggleMenu() {
@@ -792,7 +927,7 @@ window.addEventListener('load', animateCounters);
 
 
 // ================================================================
-// 9. INICIALIZAÇÃO
+// 10. INICIALIZAÇÃO
 // ================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -807,6 +942,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Módulo 1: anel de progresso + lista de aulas clicáveis
     injetarAnelProgresso('mod1');
     injetarListaAulas('mod1', 'lista-mod1');
+
+    // Efeito 3D da onda no hero
+    initWaveBackground();
 
     // Quando desbloquear outros módulos, adicione:
     // injetarAnelProgresso('mod2');
