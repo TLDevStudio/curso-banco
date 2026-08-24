@@ -20,7 +20,7 @@ const payment = new Payment(client);
 
 const User = mongoose.models.User;
 
-const VALOR = 0.01; // ← mude para 499.00 quando for produção
+const VALOR = 1.00; // ← mude para 499.00 quando for produção
 const DESCRICAO = 'Mentoria Onda de Resultados — Acesso Vitalício';
 const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 
