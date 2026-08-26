@@ -219,7 +219,7 @@ const MODULOS = {
                 duracao: '00:49 seg',
                 totalSeconds: 49,
                 type: 'mp4',
-                src: '/videos/mod2/aula-intro.mp4',
+                src: '../videos/mod2/aula-intro.mp4',
                 
             },
             {
@@ -229,7 +229,7 @@ const MODULOS = {
                 totalSeconds: 1080,
                 type: 'mp4',
                 src: 'COLOQUE_O_ID_AQUI',
-                pdf: '/pdf/mod2/aula01.pdf'
+                pdf: '../pdf/mod2/aula01.pdf'
             },
             {
                 titulo: 'Abordagem 2: O Gancho do Objetivo',
@@ -238,7 +238,7 @@ const MODULOS = {
                 totalSeconds: 1200,
                 type: 'mp4',
                 src: 'COLOQUE_O_ID_AQUI',
-                pdf: '/pdf/mod2/aula02.pdf'
+                pdf: '../pdf/mod2/aula02.pdf'
             },
             {
                 titulo: 'Abordagem 3: O Gancho da Dificuldade',
@@ -247,7 +247,7 @@ const MODULOS = {
                 totalSeconds: 1320,
                 type: 'mp4',
                 src: 'COLOQUE_O_ID_AQUI',
-                pdf: '/pdf/mod2/aula03.pdf'
+                pdf: '../pdf/mod2/aula03.pdf'
             },
             {
                 titulo: 'Abordagem 4: O Gancho da Experiência',
@@ -256,7 +256,7 @@ const MODULOS = {
                 totalSeconds: 840,
                 type: 'youtube',
                 src: 'COLOQUE_O_ID_AQUI',
-                pdf: '/pdf/mod2/aula04.pdf'
+                pdf: '../pdf/mod2/aula04.pdf'
             },
             {
                 titulo: 'Fechamento e documentação de crédito',
@@ -265,7 +265,7 @@ const MODULOS = {
                 totalSeconds: 1200,
                 type: 'youtube',
                 src: 'COLOQUE_O_ID_AQUI',
-                pdf: '/pdfs/mod2/aula06.pdf'
+                pdf: '../pdfs/mod2/aula06.pdf'
             }
         ]
     },
