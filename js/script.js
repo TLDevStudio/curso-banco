@@ -659,11 +659,11 @@ function injetarAnelProgresso(moduloId) {
 const videoSources = {
     1: {
         type: 'mp4',
-        src: '../videos/demo/demo1.mp4'
+        src: './videos/demo/demo1.mp4'
     },
     2: {
         type: 'mp4',
-        src: '../videos/demo/demo2.mp4'
+        src: './videos/demo/demo2.mp4'
     }
 };
 
