@@ -200,7 +200,7 @@ const MODULOS = {
     mod1: {
         titulo: 'Módulo 1 · Consórcio — Do Básico ao Fechamento',
         aulas: [
-            { titulo: 'O que é consórcio e como ele realmente funciona', desc: 'Conceito, grupos, cartas de crédito e contemplação', duracao: '18 min', totalSeconds: 1080, type: 'youtube', src: 'hOyqqdyIrp0' },
+            { titulo: 'O que é consórcio e como ele realmente funciona', desc: 'Conceito, grupos, cartas de crédito e contemplação', duracao: '18 min', totalSeconds: 1080, type: 'mp4', src: '../videos/demo/demo1.mp4' },
             { titulo: 'Perfil de cliente ideal para consórcio', desc: 'Como identificar quem tem maior propensão a comprar', duracao: '14 min', totalSeconds: 840, type: 'youtube', src: 'x6bHQj8fH_k' },
             { titulo: 'A abordagem inicial — o que dizer nos primeiros 60s', desc: 'Script adaptável para agência, telefone e WhatsApp', duracao: '22 min', totalSeconds: 1320, type: 'youtube', src: 'COLOQUE_O_ID_AQUI' },
             { titulo: 'Comparando consórcio com financiamento', desc: 'Como posicionar sem depreciar o financiamento', duracao: '20 min', totalSeconds: 1200, type: 'youtube', src: 'dQw4w9WgXcQ' },

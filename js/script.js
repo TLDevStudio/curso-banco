@@ -89,16 +89,16 @@ const MODULOS = {
                 desc: 'Conceito, grupos, cartas de crédito e contemplação',
                 duracao: '18 min',
                 totalSeconds: 1080,
-                type: 'youtube',
-                src: 'hOyqqdyIrp0'          // ← ID do YouTube
+                type: 'mp4',
+                src: '../videos/demo/demo1.mp4'          // ← caminho relativo a partir de /pages/
             },
             {
                 titulo: 'Perfil de cliente ideal para consórcio',
                 desc: 'Como identificar quem tem maior propensão a comprar',
                 duracao: '14 min',
                 totalSeconds: 840,
-                type: 'youtube',
-                src: 'x6bHQj8fH_k'          // ← ID do YouTube
+                type: 'mp4',
+                src: '../videos/demo/demo2.mp4'          // ← ID do YouTube
             },
             {
                 titulo: 'A abordagem inicial — o que dizer nos primeiros 60 segundos',
@@ -645,19 +645,53 @@ function injetarAnelProgresso(moduloId) {
 // ================================================================
 // 6. VÍDEOS DEMO (seção de aulas demonstrativas)
 // ================================================================
+//
+// Cada entrada define o TIPO do vídeo demo (youtube ou mp4) e a
+// respectiva fonte:
+//   - youtube → informe o ID do vídeo (o que vem depois de "v=" na URL)
+//   - mp4     → informe o caminho/URL direta do arquivo .mp4
+//
+// IMPORTANTE sobre caminhos: como este script é carregado pelo
+// index.html, que está na RAIZ do projeto, caminhos relativos aqui
+// devem ser relativos à raiz (ex: "./videos/demo/demo1.mp4"),
+// e NÃO "../videos/..." (esse "../" é usado dentro de /pages/).
 
-const videoIds = { 1: 'hOyqqdyIrp0', 2: 'x6bHQj8fH_k' };
+const videoSources = {
+    1: {
+        type: 'mp4',
+        src: '../videos/demo/demo1.mp4'
+    },
+    2: {
+        type: 'mp4',
+        src: '../videos/demo/demo2.mp4'
+    }
+};
 
 function loadVideo(n) {
     const el = document.getElementById('video' + n);
     if (!el) return;
+
+    const v = videoSources[n];
+    if (!v) return;
+
     el.style.background = '#000';
-    el.innerHTML = `<iframe
-        src="https://www.youtube.com/embed/${videoIds[n]}?autoplay=1&rel=0"
-        allow="autoplay; encrypted-media"
-        allowfullscreen
-        style="position:absolute;inset:0;width:100%;height:100%;border:none">
-    </iframe>`;
+
+    if (v.type === 'mp4') {
+        el.innerHTML = `<video
+            controls
+            autoplay
+            style="position:absolute;inset:0;width:100%;height:100%;background:#000;outline:none">
+            <source src="${v.src}" type="video/mp4">
+        </video>`;
+
+    } else if (v.type === 'youtube') {
+        el.innerHTML = `<iframe
+            src="https://www.youtube.com/embed/${v.src}?autoplay=1&rel=0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen
+            style="position:absolute;inset:0;width:100%;height:100%;border:none">
+        </iframe>`;
+    }
 }
 
 
